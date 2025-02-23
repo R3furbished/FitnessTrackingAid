@@ -46,7 +46,7 @@ Page {
     }
 
     Rectangle {
-        id: lowBar
+        id: bottomBar
         height: 40
         width: parent.width
         anchors.bottom: parent.bottom
@@ -54,20 +54,20 @@ Page {
 
         Button {
             width: 80
-            anchors.verticalCenter: lowBar.verticalCenter
-            anchors.left: lowBar.left
+            anchors.verticalCenter: bottomBar.verticalCenter
+            anchors.left: bottomBar.left
             text: "food"
         }
         Button {
             width: 80
             anchors.centerIn: parent
-            anchors.verticalCenter: lowBar.verticalCenter
+            anchors.verticalCenter: bottomBar.verticalCenter
             text: "macros"
         }
         Button {
             width: 80
-            anchors.verticalCenter: lowBar.verticalCenter
-            anchors.right: lowBar.right
+            anchors.verticalCenter: bottomBar.verticalCenter
+            anchors.right: bottomBar.right
             text: "stats"
         }
     }
