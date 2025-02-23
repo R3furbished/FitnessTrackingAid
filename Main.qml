@@ -41,7 +41,7 @@ ApplicationWindow {
     Drawer {
         id: drawer
         height: parent.height
-        width: parent.width * 2 / 3
+        width: parent.width * 1 / 2
         interactive: true
         background: Rectangle {
             color: "black"
