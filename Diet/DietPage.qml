@@ -2,6 +2,7 @@ import QtQuick 2.15
 import QtQuick.Controls
 
 Page {
+
     Rectangle {
         id: backgroundRectangle
         anchors.fill: parent
@@ -11,6 +12,7 @@ Page {
     }
 
     Rectangle {
+        id: rectP
         anchors.centerIn: parent
         width: 200
         height: 200

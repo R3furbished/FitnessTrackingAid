@@ -6,8 +6,8 @@ import "Diet"
 import "Workout"
 
 ApplicationWindow {
-    width: 640
-    height: 480
+    width: 480
+    height: 640
     visible: true
     title: qsTr("KhanFit")
 
@@ -20,6 +20,9 @@ ApplicationWindow {
             spacing: 10
             TabButton {
                 text: ">"
+                onClicked: {
+                    drawer.open()
+                }
             }
 
             TabBar {
@@ -36,13 +39,38 @@ ApplicationWindow {
     }
 
     Drawer {
-        id: drawerTab
+        id: drawer
         height: parent.height
         width: parent.width * 2 / 3
         interactive: true
+        background: Rectangle {
+            color: "black"
+        }
+
+        ListView {
+            id: drawerContent
+            anchors.fill: parent
+
+            Loader {
+                id: drawerLoader
+                anchors.fill: parent
+                sourceComponent: dietDrawerContent
+            }
+        }
+    }
+
+    Component {
+        id: dietDrawerContent
+        DietDrawerContent {}
+    }
+
+    Component {
+        id: workoutDrawerContent
+        WorkoutDrawerContent {}
     }
 
     StackLayout {
+        id: mainLayout
         anchors.top: topHeader.bottom
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -67,6 +95,18 @@ ApplicationWindow {
 
             WorkoutPage {
                 id: workoutView
+            }
+        }
+    }
+
+    Connections {
+        //Controlls which Component gets Loaded by the Column element inside the Drawer;
+        target: mainLayout
+        function onCurrentIndexChanged() {
+            if (mainLayout.currentIndex === 0) {
+                drawerLoader.sourceComponent = dietDrawerContent
+            } else if (mainLayout.currentIndex === 1) {
+                drawerLoader.sourceComponent = workoutDrawerContent
             }
         }
     }
