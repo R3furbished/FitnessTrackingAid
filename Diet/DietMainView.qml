@@ -1,52 +1,152 @@
 import QtQuick 2.15
 import QtQuick.Controls
 
+//Needs to contain all NavBars here
 Page {
-
-    Rectangle {
-        id: backgroundRectangle
-        anchors.fill: parent
+    StackView {
+        id: mainStack
         height: parent.height
         width: parent.width
-        color: "#22092C"
-    }
+        initialItem: dietView
 
-    Rectangle {
-        id: macroPlacement
-        width: mealListPlacement.width
-        height: 50
-        radius: 10
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: mealListPlacement.top
-        anchors.bottomMargin: 10
-        anchors.top: parent.top
-        anchors.topMargin: 10
-        color: "gray"
-        Text {
-            anchors.centerIn: parent
-            text: new Date().toLocaleDateString(Qt.locale().shortFormat)
-            font.bold: true
+        DietPage {
+            id: dietView
         }
     }
 
     Rectangle {
-        id: mealListPlacement
-        anchors.top: parent.top
-        anchors.topMargin: 70
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 316
-        height: 410
-        color: "#872341"
+        id: bottomNavBar
+        height: 40
+        width: parent.width
+        anchors.bottom: parent.bottom
+        Loader {
+            id: navBarLoader
+            anchors.fill: parent
+            sourceComponent: dietNavBarComponent
+        }
     }
 
-    Rectangle {
-        id: addFoddButton
-        anchors.top: mealListPlacement.bottom
-        anchors.topMargin: 10
-        anchors.horizontalCenter: parent.horizontalCenter
-        height: 60
-        width: 60
-        radius: 30
-        color: "#872341"
+    Component {
+        id: dietNavBarComponent
+        Item {
+            Rectangle {
+                id: bottomBar
+                height: 40
+                width: parent.width
+                anchors.bottom: parent.bottom
+                color: "black"
+
+                Button {
+                    width: 80
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    anchors.left: bottomBar.left
+                    text: "food"
+                    onClicked: {
+                        mainStack.push("./FoodsPage.qml")
+                        navBarLoader.sourceComponent = foodsNavBarComponent
+                    }
+                }
+                Button {
+                    width: 80
+                    anchors.centerIn: parent
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    text: "macros"
+                    onClicked: {
+
+                        navBarLoader.sourceComponent = macrosNavBarComponent
+                    }
+                }
+                Button {
+                    width: 80
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    anchors.right: bottomBar.right
+                    text: "stats"
+                    onClicked: {
+
+                        navBarLoader.sourceComponent = statsNavBarComponent
+                    }
+                }
+            }
+        }
     }
+
+    Component {
+        id: foodsNavBarComponent
+        Item {
+
+            Rectangle {
+                id: bottomBar
+                height: 40
+                width: parent.width
+                anchors.bottom: parent.bottom
+                color: "black"
+
+                Button {
+                    width: 80
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    anchors.left: bottomBar.left
+                    text: "⛠"
+                    onClicked: {
+                        mainStack.pop()
+                        navBarLoader.sourceComponent = dietNavBarComponent
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: macrosNavBarComponent
+        Item {
+
+            Rectangle {
+                id: bottomBar
+                height: 40
+                width: parent.width
+                anchors.bottom: parent.bottom
+                color: "black"
+
+                Button {
+                    width: 80
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    anchors.left: bottomBar.left
+                    text: "⛠"
+                    onClicked: {
+                        mainStack.pop()
+                        navBarLoader.sourceComponent = dietNavBarComponent
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: statsNavBarComponent
+        Item {
+
+            Rectangle {
+                id: bottomBar
+                height: 40
+                width: parent.width
+                anchors.bottom: parent.bottom
+                color: "black"
+
+                Button {
+                    width: 80
+                    anchors.verticalCenter: bottomBar.verticalCenter
+                    anchors.left: bottomBar.left
+                    text: "⛠"
+                    onClicked: {
+                        mainStack.pop()
+                        navBarLoader.sourceComponent = dietNavBarComponent
+                    }
+                }
+            }
+        }
+    }
+    // Connections {
+    //     target: dietTab
+    //     //Load apropriate NavBar into bottomNavBar
+    //     function OnCurrentIndexChanged() {}
+    // }
 }

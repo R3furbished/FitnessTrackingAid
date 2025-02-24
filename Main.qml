@@ -126,7 +126,7 @@ ApplicationWindow {
         anchors.left: parent.left
         currentIndex: tabBar.currentIndex
 
-        DietPage {
+        DietMainView {
             id: dietView
         }
 
