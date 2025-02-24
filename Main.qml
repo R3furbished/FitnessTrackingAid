@@ -75,49 +75,6 @@ ApplicationWindow {
         WorkoutDrawerContent {}
     }
 
-    // Component {
-    //     id: dietNavBarContent
-    //     Item {
-
-    //         Rectangle {
-    //             id: bottomBar
-    //             height: 40
-    //             width: parent.width
-    //             anchors.bottom: parent.bottom
-    //             color: "orange"
-
-    //             Button {
-    //                 width: 80
-    //                 anchors.verticalCenter: bottomBar.verticalCenter
-    //                 anchors.left: bottomBar.left
-    //                 text: "food"
-    //                 onClicked: {
-    //                     dietTab.push("./Diet/FoodsPage.qml") //Note: does this need to be in qrc: ?
-    //                 }
-    //             }
-    //             Button {
-    //                 width: 80
-    //                 anchors.centerIn: parent
-    //                 anchors.verticalCenter: bottomBar.verticalCenter
-    //                 text: "macros"
-    //                 onClicked: {
-    //                     dietTab.pop()
-    //                 }
-    //             }
-    //             Button {
-    //                 width: 80
-    //                 anchors.verticalCenter: bottomBar.verticalCenter
-    //                 anchors.right: bottomBar.right
-    //                 text: "stats"
-    //             }
-    //         }
-    //     }
-    // }
-
-    // Component {
-    //     id: workoutNavBarContent
-    //     WorkoutNavBar {}
-    // }
     StackLayout {
         id: mainLayout
         anchors.top: topHeader.bottom
@@ -130,29 +87,11 @@ ApplicationWindow {
             id: dietView
         }
 
-        StackView {
-            id: workoutTab
-            height: parent.height
-            width: parent.width
-            initialItem: workoutView
-
-            WorkoutPage {
-                id: workoutView
-            }
+        WorkoutMainView {
+            id: workoutView
         }
     }
 
-    // Rectangle {
-    //     id: bottomNavBar
-    //     height: 40
-    //     width: parent.width
-    //     anchors.bottom: parent.bottom
-    //     Loader {
-    //         id: navBarLoader
-    //         anchors.fill: parent
-    //         sourceComponent: dietNavBarContent
-    //     }
-    // }
     Connections {
         //Controlls which Component gets Loaded by the Column element inside the Drawer;
         target: mainLayout

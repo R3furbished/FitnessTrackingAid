@@ -21,16 +21,17 @@ qt_add_qml_module(appDietWorkoutTracker
         QML_FILES PageElements/TopBar.qml
         QML_FILES
         QML_FILES Diet/DietPage.qml
-        QML_FILES Workout/WorkoutPage.qml
+        QML_FILES Workout/WorkoutMainView.qml
         QML_FILES PageElements/DietDrawerContent.qml
         QML_FILES PageElements/WorkoutDrawerContent.qml
         QML_FILES MyDialogs/CreateFoodDialog.qml
         QML_FILES
         QML_FILES Diet/FoodsPage.qml
         QML_FILES
-        QML_FILES PageElements/WorkoutNavBar.qml
+        QML_FILES
         QML_FILES Diet/DietMainView.qml
         QML_FILES
+        QML_FILES Workout/WorkoutPage.qml
 )
 
 set_target_properties(appDietWorkoutTracker PROPERTIES
