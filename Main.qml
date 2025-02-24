@@ -74,50 +74,50 @@ ApplicationWindow {
         id: workoutDrawerContent
         WorkoutDrawerContent {}
     }
-    Component {
-        id: dietNavBarContent
-        Item {
 
-            Rectangle {
-                id: bottomBar
-                height: 40
-                width: parent.width
-                anchors.bottom: parent.bottom
-                color: "orange"
+    // Component {
+    //     id: dietNavBarContent
+    //     Item {
 
-                Button {
-                    width: 80
-                    anchors.verticalCenter: bottomBar.verticalCenter
-                    anchors.left: bottomBar.left
-                    text: "food"
-                    onClicked: {
-                        dietTab.push("./Diet/FoodsPage.qml") //Note: does this need to be in qrc: ?
-                    }
-                }
-                Button {
-                    width: 80
-                    anchors.centerIn: parent
-                    anchors.verticalCenter: bottomBar.verticalCenter
-                    text: "macros"
-                    onClicked: {
-                        dietTab.pop()
-                    }
-                }
-                Button {
-                    width: 80
-                    anchors.verticalCenter: bottomBar.verticalCenter
-                    anchors.right: bottomBar.right
-                    text: "stats"
-                }
-            }
-        }
-    }
+    //         Rectangle {
+    //             id: bottomBar
+    //             height: 40
+    //             width: parent.width
+    //             anchors.bottom: parent.bottom
+    //             color: "orange"
 
-    Component {
-        id: workoutNavBarContent
-        WorkoutNavBar {}
-    }
+    //             Button {
+    //                 width: 80
+    //                 anchors.verticalCenter: bottomBar.verticalCenter
+    //                 anchors.left: bottomBar.left
+    //                 text: "food"
+    //                 onClicked: {
+    //                     dietTab.push("./Diet/FoodsPage.qml") //Note: does this need to be in qrc: ?
+    //                 }
+    //             }
+    //             Button {
+    //                 width: 80
+    //                 anchors.centerIn: parent
+    //                 anchors.verticalCenter: bottomBar.verticalCenter
+    //                 text: "macros"
+    //                 onClicked: {
+    //                     dietTab.pop()
+    //                 }
+    //             }
+    //             Button {
+    //                 width: 80
+    //                 anchors.verticalCenter: bottomBar.verticalCenter
+    //                 anchors.right: bottomBar.right
+    //                 text: "stats"
+    //             }
+    //         }
+    //     }
+    // }
 
+    // Component {
+    //     id: workoutNavBarContent
+    //     WorkoutNavBar {}
+    // }
     StackLayout {
         id: mainLayout
         anchors.top: topHeader.bottom
@@ -125,15 +125,9 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.left: parent.left
         currentIndex: tabBar.currentIndex
-        StackView {
-            id: dietTab
-            height: parent.height
-            width: parent.width
-            initialItem: dietView
 
-            DietPage {
-                id: dietView
-            }
+        DietPage {
+            id: dietView
         }
 
         StackView {
@@ -148,27 +142,26 @@ ApplicationWindow {
         }
     }
 
-    Rectangle {
-        id: bottomNavBar
-        height: 40
-        width: parent.width
-        anchors.bottom: parent.bottom
-        Loader {
-            id: navBarLoader
-            anchors.fill: parent
-            sourceComponent: dietNavBarContent
-        }
-    }
-
+    // Rectangle {
+    //     id: bottomNavBar
+    //     height: 40
+    //     width: parent.width
+    //     anchors.bottom: parent.bottom
+    //     Loader {
+    //         id: navBarLoader
+    //         anchors.fill: parent
+    //         sourceComponent: dietNavBarContent
+    //     }
+    // }
     Connections {
         //Controlls which Component gets Loaded by the Column element inside the Drawer;
         target: mainLayout
         function onCurrentIndexChanged() {
             if (mainLayout.currentIndex === 0) {
-                navBarLoader.sourceComponent = dietNavBarContent
+                //navBarLoader.sourceComponent = dietNavBarContent
                 drawerLoader.sourceComponent = dietDrawerContent
             } else if (mainLayout.currentIndex === 1) {
-                navBarLoader.sourceComponent = workoutNavBarContent
+                //navBarLoader.sourceComponent = workoutNavBarContent
                 drawerLoader.sourceComponent = workoutDrawerContent
             }
         }

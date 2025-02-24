@@ -8,8 +8,4 @@ Page {
         width: parent.width
         color: "purple"
     }
-
-    footer: ToolBar {
-        id: workoutPageToolBar
-    }
 }
