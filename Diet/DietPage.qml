@@ -13,7 +13,7 @@ Page {
 
     Rectangle {
         id: macroPlacement
-        width: mealListPlace.width
+        width: mealListPlacement.width
         height: 50
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -22,6 +22,11 @@ Page {
         anchors.top: parent.top
         anchors.topMargin: 10
         color: "gray"
+        Text {
+            anchors.centerIn: parent
+            text: new Date().toLocaleDateString(Qt.locale().shortFormat)
+            font.bold: true
+        }
     }
 
     Rectangle {
