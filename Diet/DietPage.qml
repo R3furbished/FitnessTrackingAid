@@ -25,7 +25,7 @@ Page {
     }
 
     Rectangle {
-        id: mealListPlace
+        id: mealListPlacement
         anchors.top: parent.top
         anchors.topMargin: 70
         anchors.horizontalCenter: parent.horizontalCenter
@@ -36,7 +36,7 @@ Page {
 
     Rectangle {
         id: addFoddButton
-        anchors.top: mealListPlace.bottom
+        anchors.top: mealListPlacement.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         height: 60
@@ -71,21 +71,4 @@ Page {
             text: "stats"
         }
     }
-
-    // footer: TabBar {
-    //     id: dietPageToolBar
-    //     // Add Food | Add Meal | Save Day
-    //     TabButton {
-    //         id: addMeal
-    //         text: "Add Meal"
-    //     }
-    //     TabButton {
-    //         id: showMacros
-    //         text: "Macros"
-    //     }
-    //     TabButton {
-    //         id: more
-    //         text: "More"
-    //     }
-    // }
 }
