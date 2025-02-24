@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import "../MyDialogs"
 
 Page {
 
@@ -62,6 +63,9 @@ Page {
             anchors.verticalCenter: bottomBar.verticalCenter
             anchors.left: bottomBar.left
             text: "food"
+            onClicked: {
+                foody.open()
+            }
         }
         Button {
             width: 80
@@ -75,5 +79,9 @@ Page {
             anchors.right: bottomBar.right
             text: "stats"
         }
+    }
+
+    CreateFoodDialog {
+        id: foody
     }
 }

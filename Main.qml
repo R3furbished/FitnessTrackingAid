@@ -19,7 +19,9 @@ ApplicationWindow {
             anchors.top: parent.top
             spacing: 10
             TabButton {
-                text: ">"
+                text: "☰"
+                font.pixelSize: 20
+                font.bold: true
                 onClicked: {
                     drawer.open()
                 }
@@ -30,9 +32,13 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 TabButton {
                     text: qsTr("Diet")
+                    font.bold: true
+                    font.pixelSize: 20
                 }
                 TabButton {
                     text: qsTr("Workout")
+                    font.bold: true
+                    font.pixelSize: 20
                 }
             }
         }
