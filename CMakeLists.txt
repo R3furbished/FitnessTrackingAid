@@ -32,6 +32,9 @@ qt_add_qml_module(appDietWorkoutTracker
         QML_FILES Diet/DietMainView.qml
         QML_FILES
         QML_FILES Workout/WorkoutPage.qml
+        QML_FILES Diet/MacrosPage.qml
+        QML_FILES Diet/StatsPage.qml
+        QML_FILES MyDialogs/CreateMealDialog.qml
 )
 
 set_target_properties(appDietWorkoutTracker PROPERTIES

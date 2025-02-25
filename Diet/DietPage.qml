@@ -1,5 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import "../MyDialogs"
+
+//Missing -> C++ data interaction and displaying the model
 
 Page {
 
@@ -48,5 +51,15 @@ Page {
         width: 60
         radius: 30
         color: "#872341"
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                addMealDialog.open()
+            }
+        }
+    }
+
+    CreateMealDialog {
+        id: addMealDialog
     }
 }

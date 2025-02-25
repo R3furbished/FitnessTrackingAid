@@ -30,11 +30,21 @@ Dialog {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         text: qsTr("Cancel")
+        onClicked: {
+            foodFormDialog.close()
+        }
     }
     Button {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("Done")
+    }
+
+    Component.onCompleted: {
+
+    }
+    Component.onDestruction: {
+
     }
 }
 

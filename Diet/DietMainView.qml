@@ -52,7 +52,7 @@ Page {
                     anchors.verticalCenter: bottomBar.verticalCenter
                     text: "macros"
                     onClicked: {
-
+                        mainStack.push("./MacrosPage.qml")
                         navBarLoader.sourceComponent = macrosNavBarComponent
                     }
                 }
@@ -62,7 +62,7 @@ Page {
                     anchors.right: bottomBar.right
                     text: "stats"
                     onClicked: {
-
+                        mainStack.push("./StatsPage.qml")
                         navBarLoader.sourceComponent = statsNavBarComponent
                     }
                 }
@@ -84,7 +84,7 @@ Page {
                 Button {
                     width: 80
                     anchors.verticalCenter: bottomBar.verticalCenter
-                    anchors.left: bottomBar.left
+                    anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"
                     onClicked: {
                         mainStack.pop()
@@ -109,7 +109,7 @@ Page {
                 Button {
                     width: 80
                     anchors.verticalCenter: bottomBar.verticalCenter
-                    anchors.left: bottomBar.left
+                    anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"
                     onClicked: {
                         mainStack.pop()
@@ -134,7 +134,7 @@ Page {
                 Button {
                     width: 80
                     anchors.verticalCenter: bottomBar.verticalCenter
-                    anchors.left: bottomBar.left
+                    anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"
                     onClicked: {
                         mainStack.pop()
@@ -144,9 +144,4 @@ Page {
             }
         }
     }
-    // Connections {
-    //     target: dietTab
-    //     //Load apropriate NavBar into bottomNavBar
-    //     function OnCurrentIndexChanged() {}
-    // }
 }
