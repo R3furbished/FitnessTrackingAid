@@ -51,6 +51,7 @@ private:
     Q_PROPERTY(int proteins READ proteins WRITE setProteins NOTIFY proteinsChanged FINAL)
     Q_PROPERTY(int carbs READ carbs WRITE setCarbs NOTIFY carbsChanged FINAL)
     Q_PROPERTY(int grams_value READ grams_value WRITE setGrams_value NOTIFY grams_valueChanged FINAL)
+
 };
 
 #endif // FOODITEM_H

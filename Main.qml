@@ -52,7 +52,7 @@ ApplicationWindow {
         background: Rectangle {
             color: "black"
         }
-
+        dragMargin: 20
         ListView {
             id: drawerContent
             anchors.fill: parent

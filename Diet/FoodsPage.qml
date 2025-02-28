@@ -27,6 +27,9 @@ Page {
             anchors.fill: parent
             model: foodModel
             delegate: foodItemDelegate
+            currentIndex: -1
+            Component.onCompleted: console.log(
+                                       "ListView index: " + foodListView.currentIndex)
         }
     }
 
@@ -34,8 +37,10 @@ Page {
         id: foodItemDelegate
         Rectangle {
             width: parent.width
-            height: textID.implicitHeight
+            height: 35
             color: "gray"
+            border.color: "black"
+
             radius: 10
             Text {
                 id: textID
@@ -47,6 +52,9 @@ Page {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
+                    foodListView.currentIndex = index
+                    console.log(foodListView.currentIndex)
+                    console.log(foodListView.currentItem)
                     if (editFoodDialogLoader.active === true) {
                         editFoodDialogLoader.active = false
                     }
@@ -93,4 +101,5 @@ Page {
             id: editFoodDialog
         }
     }
+    Component.onDestruction: console.log("Deleted FOOD page.")
 }

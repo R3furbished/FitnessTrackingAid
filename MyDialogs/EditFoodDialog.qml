@@ -24,6 +24,16 @@ Dialog {
         //TODO:: Add in the user Input fields for:
         //   -> Food name;
         //   -> Grams for food;
+        TextField {
+            id: foodName
+            // This seems to be a hack, but it is able to get the name inside the clicked item;
+            placeholderText: foodModel[foodListView.currentIndex].name
+            onAccepted: foodModel[foodListView.currentIndex].name = text
+        }
+        TextField {
+            anchors.top: foodName.bottom
+            text: "boas"
+        }
     }
     Button {
         id: cancelButton
@@ -54,6 +64,7 @@ Dialog {
             deleteFoodDialogLoader.item.open()
         }
     }
+
     Loader {
         id: deleteFoodDialogLoader
         sourceComponent: MessageDialog {
@@ -61,7 +72,18 @@ Dialog {
             text: qsTr("The selected Item will be deleted.")
             informativeText: qsTr("Do you wish to proceed?")
             buttons: MessageDialog.Ok | MessageDialog.Cancel
-            onButtonClicked: {
+            onButtonClicked: function (button, role) {
+                if (button === MessageDialog.Ok) {
+                    accept()
+                } else {
+                    reject()
+                }
+            }
+            onAccepted: {
+                deleteFoodDialog.close()
+                editFoodDialog.close()
+            }
+            onRejected: {
                 deleteFoodDialog.close()
             }
         }

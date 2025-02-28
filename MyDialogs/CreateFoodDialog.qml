@@ -22,12 +22,32 @@ Dialog {
 
         TextField {
             id: foodName
-            placeholderText: "Name"
+            width: parent.width / 2
+            placeholderText: "Food Name"
+            placeholderTextColor: "white"
+            anchors.centerIn: parent
+            background: Rectangle {
+                radius: 10
+                color: "gray"
+            }
         }
         TextField {
             id: calories
+            width: parent.width / 2
+            placeholderTextColor: "white"
+            background: Rectangle {
+                radius: 10
+                color: "gray"
+            }
             anchors.top: foodName.bottom
-            placeholderText: "calories"
+            anchors.topMargin: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+            placeholderText: "Calories"
+            onFocusChanged: {
+                if (calories.text === "") {
+                    calories.text = "10000"
+                }
+            }
         }
 
         //TODO:: Add in the user Input fields for:
@@ -50,6 +70,12 @@ Dialog {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("Done")
+        onClicked: {
+            //TODO:: clean this UP!!!!!!
+            foodModel.append(new FoodItem(foodName.text,
+                                          parseInt(calories.text)))
+            console.log(foodName.text + ": " + calories.text)
+        }
     }
 }
 
