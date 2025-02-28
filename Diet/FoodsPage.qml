@@ -5,7 +5,7 @@ import "../MyDialogs"
 //Missing   -> Deciding the layout and coding it
 //			-> C++ data interaction and displaying the model
 Page {
-
+    id: foodsPage
     Rectangle {
         id: backgroundRect
         anchors.fill: parent
@@ -21,7 +21,43 @@ Page {
         width: parent.width - 70
         radius: 5
         color: "#BE3144"
+
+        ListView {
+            id: foodListView
+            anchors.fill: parent
+            model: foodModel
+            delegate: foodItemDelegate
+        }
     }
+
+    Component {
+        id: foodItemDelegate
+        Rectangle {
+            width: parent.width
+            height: textID.implicitHeight
+            color: "gray"
+            radius: 10
+            Text {
+                id: textID
+                anchors.centerIn: parent
+                font.pixelSize: 20
+                font.bold: true
+                text: "" + name + " " + calories + " " + grams_value
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    if (editFoodDialogLoader.active === true) {
+                        editFoodDialogLoader.active = false
+                    }
+
+                    editFoodDialogLoader.active = true
+                    editFoodDialogLoader.item.open()
+                }
+            }
+        }
+    }
+
     Rectangle {
         id: addFoddButton
         anchors.top: foodListPlacement.bottom
@@ -34,11 +70,27 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                addFoodDialog.open()
+                if (createFoodDialogLoader.active === true) {
+                    createFoodDialogLoader.active = false
+                }
+
+                createFoodDialogLoader.active = true
+                createFoodDialogLoader.item.open()
             }
         }
     }
-    CreateFoodDialog {
-        id: addFoodDialog
+    Loader {
+        id: createFoodDialogLoader
+        anchors.fill: parent
+        sourceComponent: CreateFoodDialog {
+            id: addFoodDialog
+        }
+    }
+    Loader {
+        id: editFoodDialogLoader
+        anchors.fill: parent
+        sourceComponent: EditFoodDialog {
+            id: editFoodDialog
+        }
     }
 }

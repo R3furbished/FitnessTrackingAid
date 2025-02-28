@@ -6,6 +6,8 @@ Dialog {
     height: parent.height * 2 / 3
     width: parent.width - 20
     anchors.centerIn: parent
+    modal: true
+    focus: true
     title: "Create a New Food Item"
 
     Rectangle {
@@ -17,6 +19,16 @@ Dialog {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 5
+
+        TextField {
+            id: foodName
+            placeholderText: "Name"
+        }
+        TextField {
+            id: calories
+            anchors.top: foodName.bottom
+            placeholderText: "calories"
+        }
 
         //TODO:: Add in the user Input fields for:
         //   -> Food name;
@@ -38,13 +50,6 @@ Dialog {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("Done")
-    }
-
-    Component.onCompleted: {
-
-    }
-    Component.onDestruction: {
-
     }
 }
 

@@ -7,6 +7,8 @@ Dialog {
     height: parent.height * 2 / 3
     width: parent.width - 20
     anchors.centerIn: parent
+    modal: true
+    focus: true
     title: "Add Meal To The Day"
 
     Rectangle {

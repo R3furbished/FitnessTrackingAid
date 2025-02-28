@@ -3,7 +3,6 @@ import QtQuick.Controls
 import "../MyDialogs"
 
 //Missing -> C++ data interaction and displaying the model
-
 Page {
 
     Rectangle {
@@ -20,8 +19,6 @@ Page {
         height: 50
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: mealListPlacement.top
-        anchors.bottomMargin: 10
         anchors.top: parent.top
         anchors.topMargin: 10
         color: "gray"
@@ -34,11 +31,11 @@ Page {
 
     Rectangle {
         id: mealListPlacement
-        anchors.top: parent.top
-        anchors.topMargin: 70
+        anchors.top: macroPlacement.bottom
+        anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 316
-        height: 410
+        width: parent.width - 70
+        height: parent.height - 200
         color: "#872341"
     }
 
