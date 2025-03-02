@@ -16,7 +16,7 @@ Page {
 
     Rectangle {
         id: bottomNavBar
-        height: 40
+        height: 50
         width: parent.width
         anchors.bottom: parent.bottom
         Loader {
@@ -31,13 +31,14 @@ Page {
         Item {
             Rectangle {
                 id: bottomBar
-                height: 40
+                height: bottomNavBar.height
                 width: parent.width
                 anchors.bottom: parent.bottom
                 color: "black"
 
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.left: bottomBar.left
                     text: "food"
@@ -48,6 +49,7 @@ Page {
                 }
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.centerIn: parent
                     anchors.verticalCenter: bottomBar.verticalCenter
                     text: "macros"
@@ -58,6 +60,7 @@ Page {
                 }
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.right: bottomBar.right
                     text: "stats"
@@ -76,13 +79,14 @@ Page {
 
             Rectangle {
                 id: bottomBar
-                height: 40
+                height: bottomNavBar.height
                 width: parent.width
                 anchors.bottom: parent.bottom
                 color: "black"
 
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"
@@ -101,13 +105,14 @@ Page {
 
             Rectangle {
                 id: bottomBar
-                height: 40
+                height: bottomNavBar.height
                 width: parent.width
                 anchors.bottom: parent.bottom
                 color: "black"
 
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"
@@ -126,13 +131,14 @@ Page {
 
             Rectangle {
                 id: bottomBar
-                height: 40
+                height: bottomNavBar.height
                 width: parent.width
                 anchors.bottom: parent.bottom
                 color: "black"
 
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.horizontalCenter: bottomBar.horizontalCenter
                     text: "⛠"

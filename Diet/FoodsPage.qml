@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import QtQuick.Layouts
 import "../MyDialogs"
 
 //Missing   -> Deciding the layout and coding it
@@ -28,8 +29,6 @@ Page {
             model: foodModel
             delegate: foodItemDelegate
             currentIndex: -1
-            Component.onCompleted: console.log(
-                                       "ListView index: " + foodListView.currentIndex)
         }
     }
 
@@ -42,6 +41,11 @@ Page {
             border.color: "black"
 
             radius: 10
+            RowLayout {// @ImproveDeleagteUI
+                // This RowLayout should contain:
+                //	FoodNAme | value "Kcal" | value "Prot" | value "Carbs" | value "Fats| value "Grams"
+            }
+
             Text {
                 id: textID
                 anchors.centerIn: parent
@@ -78,6 +82,7 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                //Setting active to true and false to force the Loader to uncache the Dialog.
                 if (createFoodDialogLoader.active === true) {
                     createFoodDialogLoader.active = false
                 }
