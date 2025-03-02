@@ -1,15 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import QtQuick.Layouts
 import QtQuick.Dialogs
 
 Dialog {
     id: editFoodDialog
-    height: parent.height * 2 / 3
-    width: parent.width - 20
+    height: parent.height * 2 / 3 - 30
+    width: parent.width - 40
     anchors.centerIn: parent
     modal: true
     focus: true
-    title: "Edit current Item"
 
     Rectangle {
         id: formWindow
@@ -21,18 +21,149 @@ Dialog {
         anchors.top: parent.top
         anchors.topMargin: 5
 
-        //TODO:: Add in the user Input fields for:
-        //   -> Food name;
-        //   -> Grams for food;
-        TextField {
-            id: foodName
-            // This seems to be a hack, but it is able to get the name inside the clicked item;
-            placeholderText: foodModel[foodListView.currentIndex].name
-            onAccepted: foodModel[foodListView.currentIndex].name = text
+        RowLayout {
+            id: foodNameRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: parent.top
+            anchors.topMargin: 50
+            height: 30
+            width: parent.width / 3
+            spacing: 10
+            Label {
+                text: "Name:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodName
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].name
+            }
         }
-        TextField {
-            anchors.top: foodName.bottom
-            text: "boas"
+
+        RowLayout {
+            id: foodGramsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodNameRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            Label {
+                text: "Grams:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodGrams
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].grams_value
+            }
+        }
+        RowLayout {
+            id: foodCaloriesRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodGramsRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 20
+            Label {
+                text: "Kcal:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodKcal
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].calories
+            }
+        }
+        RowLayout {
+            id: foodProtRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodCaloriesRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            Label {
+                text: "Protein:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodProt
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].proteins
+            }
+        }
+        RowLayout {
+            id: foodFatsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodProtRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 25
+            Label {
+                text: "Fats:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodFat
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].fats
+            }
+        }
+        RowLayout {
+            id: foodCarbsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodFatsRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 10
+            Label {
+                text: "Carbs:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                //TODO:: Replace this for a combination of Label and TextField
+                id: foodCarbs
+                font.bold: true
+                font.pixelSize: 15
+
+                // This seems to be a hack, but it is able to get the name inside the clicked item;
+                text: foodModel[foodListView.currentIndex].carbs
+            }
         }
     }
     Button {
