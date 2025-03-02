@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
 
 
     QList<QObject *> foodsList;
-    FoodItem *banana = new FoodItem(&engine, "Banana",120);
+    FoodItem *banana = new FoodItem(&engine, "Banana",120, 5,40,50);
     FoodItem *orange = new FoodItem(&engine, "Orange",200);
     FoodItem *kiwi = new FoodItem(&engine, "Kiwi",60);
     foodsList.append(banana);
