@@ -16,7 +16,7 @@ Page {
 
     Rectangle {
         id: bottomNavBar
-        height: 50
+        height: 45
         width: parent.width
         anchors.bottom: parent.bottom
         Loader {
