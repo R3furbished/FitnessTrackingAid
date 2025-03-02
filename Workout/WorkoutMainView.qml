@@ -16,7 +16,7 @@ Page {
 
     Rectangle {
         id: bottomNavBar
-        height: 40
+        height: 50
         width: parent.width
         anchors.bottom: parent.bottom
         Loader {
@@ -32,13 +32,15 @@ Page {
 
             Rectangle {
                 id: bottomBar
-                height: 40
+                height: bottomNavBar.height
                 width: parent.width
                 anchors.bottom: parent.bottom
                 color: "black"
 
                 Button {
+
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.left: bottomBar.left
                     text: "exercis"
@@ -48,12 +50,14 @@ Page {
                 }
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.centerIn: parent
                     anchors.verticalCenter: bottomBar.verticalCenter
                     text: "plans"
                 }
                 Button {
                     width: 80
+                    height: bottomBar.height
                     anchors.verticalCenter: bottomBar.verticalCenter
                     anchors.right: bottomBar.right
                     text: "stats"
