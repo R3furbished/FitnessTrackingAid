@@ -37,10 +37,38 @@ Page {
         width: parent.width - 70
         height: parent.height - 200
         color: "#872341"
+
+        //Get the ListView in here;
+        ListView {
+            id: mealListView
+            anchors.fill: parent
+            model: mealManagerModel.meals
+            delegate: foodItemDelegate
+            currentIndex: -1
+        }
+    }
+    Component {
+        id: mealDelegate
+        Rectangle {
+            width: parent.width
+            height: 40
+            color: "gray"
+            border.color: "black"
+
+            radius: 10
+            //TODO:: Actually think how to display each meal in the list
+            Text {
+                text: mealManagerModel.meals[index].name
+                font.pixelSize: 20
+                font.bold: true
+                anchors.centerIn: parent
+            }
+            //TODO:: add a mouse area to get info on clicked Meal;
+        }
     }
 
     Rectangle {
-        id: addFoddButton
+        id: addMealButton
         anchors.top: mealListPlacement.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
@@ -51,12 +79,22 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                addMealDialog.open()
+                //Setting active to true and false to force the Loader to uncache the Dialog.
+                if (addMealDialogLoader.active === true) {
+                    addMealDialogLoader.active = false
+                }
+
+                addMealDialogLoader.active = true
+                addMealDialogLoader.item.open()
             }
         }
     }
 
-    CreateMealDialog {
-        id: addMealDialog
+    Loader {
+        id: addMealDialogLoader
+        anchors.fill: parent
+        sourceComponent: CreateMealDialog {
+            id: addMealDialog
+        }
     }
 }
