@@ -12,7 +12,7 @@ public:
 
     Q_INVOKABLE QList<FoodItem *> foods() const;
 
-    Q_INVOKABLE void addFoodItem(const QString &name, int calories,int grams = 100,int protsa = 0,int fats= 0,int carbs=0);// This has to take info from Qt side and pass it into the FoodItem constructor
+    Q_INVOKABLE void addFoodItem(const QString &name, int calories,int grams = 100,int prots = 0,int fats= 0,int carbs=0);// This has to take info from Qt side and pass it into the FoodItem constructor
     Q_INVOKABLE void removeFoodItem(int index);
 
 

@@ -21,15 +21,6 @@ Dialog {
         anchors.top: parent.top
         anchors.topMargin: 5
 
-        Component.onCompleted: {
-            console.log(nameLabel.implicitWidth)
-            console.log(gramsLabel.implicitWidth)
-            console.log(protLabel.implicitWidth)
-            console.log(kcalLabel.implicitWidth)
-            console.log(fatLabel.implicitWidth)
-            console.log(carbLabel.implicitWidth)
-        }
-
         RowLayout {
             id: foodNameRow
             anchors.left: parent.left

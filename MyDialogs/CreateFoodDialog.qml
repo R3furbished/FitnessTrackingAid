@@ -1,5 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import QtQuick.Layouts
+import QtQuick.Dialogs
 
 Dialog {
     id: foodFormDialog
@@ -20,43 +22,150 @@ Dialog {
         anchors.top: parent.top
         anchors.topMargin: 5
 
-        TextField {
-            id: foodName
-            width: parent.width / 2
-            placeholderText: "Food Name"
-            placeholderTextColor: "white"
-            anchors.centerIn: parent
-            background: Rectangle {
-                radius: 10
-                color: "gray"
+        RowLayout {
+            id: foodNameRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: parent.top
+            anchors.topMargin: 50
+            height: 30
+            width: parent.width / 3
+            spacing: 10
+            Label {
+                id: nameLabel
+                width: formWindow.maxLabelWidth
+                text: "Name:"
+                font.bold: true
+                font.pixelSize: 15
             }
-        }
-        TextField {
-            id: calories
-            width: parent.width / 2
-            placeholderTextColor: "white"
-            background: Rectangle {
-                radius: 10
-                color: "gray"
-            }
-            anchors.top: foodName.bottom
-            anchors.topMargin: 10
-            anchors.horizontalCenter: parent.horizontalCenter
-            placeholderText: "Calories"
-            onFocusChanged: {
-                if (calories.text === "") {
-                    calories.text = "10000"
-                }
+
+            TextField {
+                id: foodName
+                font.bold: true
+                font.pixelSize: 15
+                placeholderText: "Name"
             }
         }
 
-        //TODO:: Add in the user Input fields for:
-        //   -> Food name;
-        //   -> Grams for baseline macros;
-        //   -> Calories per grams;
-        //   -> Proteins per grams; *Optional*
-        //   -> Fats per grams; 	*Optional*
-        //   -> Carbs per grams; 	*Optional*
+        RowLayout {
+            id: foodGramsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodNameRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 4
+            Label {
+                id: gramsLabel
+                width: formWindow.maxLabelWidth
+                text: "Grams:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodGrams
+                font.bold: true
+                font.pixelSize: 15
+                text: "100"
+            }
+        }
+        RowLayout {
+            id: foodCaloriesRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodGramsRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 20
+            Label {
+                width: formWindow.maxLabelWidth
+                id: kcalLabel
+                text: "Kcal:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodKcal
+                font.bold: true
+                font.pixelSize: 15
+                placeholderText: "Calories"
+            }
+        }
+        RowLayout {
+            id: foodProtRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodCaloriesRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 0
+            Label {
+                id: protLabel
+                width: formWindow.maxLabelWidth
+                text: "Protein:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodProt
+                font.bold: true
+                font.pixelSize: 15
+                text: "0"
+            }
+        }
+        RowLayout {
+            id: foodFatsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodProtRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 21
+            Label {
+                id: fatLabel
+                text: "Fats:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodFat
+                font.bold: true
+                font.pixelSize: 15
+                text: "0"
+            }
+        }
+        RowLayout {
+            id: foodCarbsRow
+            anchors.left: parent.left
+            anchors.leftMargin: (parent.width / 2) - 70
+            anchors.top: foodFatsRow.bottom
+            anchors.topMargin: 5
+            height: 30
+            width: parent.width / 3
+            spacing: 8
+            Label {
+                id: carbLabel
+                width: formWindow.maxLabelWidth
+                text: "Carbs:"
+                font.bold: true
+                font.pixelSize: 15
+            }
+
+            TextField {
+                id: foodCarbs
+                font.bold: true
+                font.pixelSize: 15
+                text: "0"
+            }
+        }
     }
     Button {
         anchors.bottom: parent.bottom
@@ -71,9 +180,29 @@ Dialog {
         anchors.right: parent.right
         text: qsTr("Done")
         onClicked: {
-            //TODO:: clean this UP!!!!!!
-            foodManagerModel.addFoodItem(foodName.text, parseInt(calories.text))
-            foodFormDialog.close()
+            if (foodName.text !== "" && foodKcal.text !== "") {
+                foodManagerModel.addFoodItem(foodName.text,
+                                             parseInt(foodKcal.text),
+                                             parseInt(foodGrams.text),
+                                             parseInt(foodProt.text),
+                                             parseInt(foodFat.text),
+                                             parseInt(foodCarbs.text))
+                foodFormDialog.close()
+            } else {
+                errorDialog.active = true
+                errorDialog.item.open()
+            }
+        }
+    }
+
+    Loader {
+        id: errorDialog
+        sourceComponent: MessageDialog {
+            id: errorMessage
+            text: qsTr("Error: Name or Calories field is empty!")
+            informativeText: qsTr("Please fill the missing field.")
+            buttons: MessageDialog.Ok
+            onButtonClicked: errorMessage.close()
         }
     }
 }
