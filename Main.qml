@@ -45,6 +45,7 @@ ApplicationWindow {
     }
 
     Drawer {
+        //Represents the side Menu | Toolbar
         id: drawer
         height: parent.height
         width: parent.width * 1 / 2
@@ -75,7 +76,7 @@ ApplicationWindow {
         WorkoutDrawerContent {}
     }
 
-    StackLayout {
+    SwipeView {
         id: mainLayout
         anchors.top: topHeader.bottom
         anchors.bottom: parent.bottom
@@ -90,6 +91,13 @@ ApplicationWindow {
         WorkoutMainView {
             id: workoutView
         }
+
+        onCurrentIndexChanged: {
+            //Keeps TabBar and View in sync
+            if (tabBar.currentIndex !== mainLayout.currentIndex) {
+                tabBar.currentIndex = mainLayout.currentIndex
+            }
+        }
     }
 
     Connections {
@@ -97,10 +105,8 @@ ApplicationWindow {
         target: mainLayout
         function onCurrentIndexChanged() {
             if (mainLayout.currentIndex === 0) {
-                //navBarLoader.sourceComponent = dietNavBarContent
                 drawerLoader.sourceComponent = dietDrawerContent
             } else if (mainLayout.currentIndex === 1) {
-                //navBarLoader.sourceComponent = workoutNavBarContent
                 drawerLoader.sourceComponent = workoutDrawerContent
             }
         }

@@ -1,7 +1,9 @@
 #include "foodsmanager.h"
 
+
 FoodsManager::FoodsManager(QObject *parent)
-    : QObject{parent}
+    : QObject{parent},
+    m_foods(QList<FoodItem *>{})
 {}
 
 QList<FoodItem *> FoodsManager::foods() const
@@ -9,15 +11,24 @@ QList<FoodItem *> FoodsManager::foods() const
     return m_foods;
 }
 
-void FoodsManager::setFoods(const QList<FoodItem *> &newFoods)
+void FoodsManager::addFoodItem(const QString &name, int calories,int grams,int prots,int fats,int carbs)
 {
-    if (m_foods == newFoods)
-        return;
-    m_foods = newFoods;
+    // Create a new FoodItem object , pass in the parent and add it to m_foods list;
+
+    //foodManager.addFoodItem("Banana",120,5,40,50); -> This is how I want to call it
+    FoodItem *new_food_item = new FoodItem(this,name,calories,prots,fats,carbs,grams);
+    m_foods.append(new_food_item);
     emit foodsChanged();
+
+
 }
 
-void FoodsManager::resetFoods()
+void FoodsManager::removeFoodItem(int index)
 {
-    setFoods({}); // TODO: Adapt to use your actual default value
+    //TODO:: since we can remove items from the midle , we should use a Linked List instead of a Vec
+    // For better performance on removals and we have the same for last item insertions
+    if(index < m_foods.length()){
+        m_foods.removeAt(index);
+        emit foodsChanged();
+    }
 }

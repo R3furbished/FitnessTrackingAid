@@ -13,55 +13,10 @@ Page {
         color: "#22092C"
     }
 
-    // Rectangle {
-    //     id: macrosTextInfo
-    //     width: foodListPlacement.width
-    //     color: "gray"
-    //     radius: 10
-    //     height: 50
-    //     anchors.top: parent.top
-    //     anchors.topMargin: 10
-    //     anchors.horizontalCenter: parent.horizontalCenter
-    //     RowLayout {
-    //         id: macrosRow
-    //         anchors.fill: parent
-    //         Label {
-    //             id: foodName
-    //             text: "Name:"
-    //             font.bold: true
-    //         }
-    //         Label {
-    //             id: kcal
-    //             text: "Kcal:"
-    //             font.bold: true
-    //         }
-    //         Label {
-    //             id: grams
-    //             text: "G:"
-    //             font.bold: true
-    //         }
-    //         Label {
-    //             id: prot
-    //             text: "Prot:"
-    //             font.bold: true
-    //         }
-    //         Label {
-    //             id: fat
-    //             text: "Fats:"
-    //             font.bold: true
-    //         }
-    //         Label {
-    //             id: carb
-    //             text: "Carbs:"
-    //             font.bold: true
-    //         }
-    //     }
-    // }
     Rectangle {
         id: foodListPlacement
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        //anchors.top: macrosTextInfo.bottom
         anchors.topMargin: 20
         height: parent.height - 190
         width: parent.width - 70
@@ -71,7 +26,7 @@ Page {
         ListView {
             id: foodListView
             anchors.fill: parent
-            model: foodModel
+            model: foodManagerModel.foods
             delegate: foodItemDelegate
             currentIndex: -1
         }
@@ -87,23 +42,13 @@ Page {
 
             radius: 10
 
-            // @ImproveDeleagteUI
-            // This RowLayout should contain:
-            //	FoodNAme | value "Kcal" | value "Prot" | value "Carbs" | value "Fats| value "Grams"
             Text {
-                text: name
+                text: foodManagerModel.foods[index].name
                 font.pixelSize: 20
                 font.bold: true
                 anchors.centerIn: parent
             }
 
-            // Text {
-            //     id: textID
-            //     anchors.centerIn: parent
-            //     font.bold: true
-            //     text: name + " | " + grams_value + " | " + calories + " | "
-            //           + proteins + " | " + fats + " | " + carbs
-            // }
             MouseArea {
                 anchors.fill: parent
                 onClicked: {

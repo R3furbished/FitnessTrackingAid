@@ -42,7 +42,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].name
+                text: foodManagerModel.foods[foodListView.currentIndex].name
             }
         }
 
@@ -66,7 +66,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].grams_value
+                text: foodManagerModel.foods[foodListView.currentIndex].grams_value
             }
         }
         RowLayout {
@@ -90,7 +90,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].calories
+                text: foodManagerModel.foods[foodListView.currentIndex].calories
             }
         }
         RowLayout {
@@ -113,7 +113,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].proteins
+                text: foodManagerModel.foods[foodListView.currentIndex].proteins
             }
         }
         RowLayout {
@@ -137,7 +137,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].fats
+                text: foodManagerModel.foods[foodListView.currentIndex].fats
             }
         }
         RowLayout {
@@ -162,7 +162,7 @@ Dialog {
                 font.pixelSize: 15
 
                 // This seems to be a hack, but it is able to get the name inside the clicked item;
-                text: foodModel[foodListView.currentIndex].carbs
+                text: foodManagerModel.foods[foodListView.currentIndex].carbs
             }
         }
     }
@@ -180,6 +180,15 @@ Dialog {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("Done")
+        onClicked: {
+            foodManagerModel.foods[foodListView.currentIndex].name = foodName.text
+            foodManagerModel.foods[foodListView.currentIndex].grams_value = foodGrams.text
+            foodManagerModel.foods[foodListView.currentIndex].calories = foodKcal.text
+            foodManagerModel.foods[foodListView.currentIndex].proteins = foodProt.text
+            foodManagerModel.foods[foodListView.currentIndex].fats = foodFat.text
+            foodManagerModel.foods[foodListView.currentIndex].carbs = foodCarbs.text
+            editFoodDialog.close()
+        }
     }
 
     Button {
