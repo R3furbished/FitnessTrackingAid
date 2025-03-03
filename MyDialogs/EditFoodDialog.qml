@@ -21,6 +21,15 @@ Dialog {
         anchors.top: parent.top
         anchors.topMargin: 5
 
+        Component.onCompleted: {
+            console.log(nameLabel.implicitWidth)
+            console.log(gramsLabel.implicitWidth)
+            console.log(protLabel.implicitWidth)
+            console.log(kcalLabel.implicitWidth)
+            console.log(fatLabel.implicitWidth)
+            console.log(carbLabel.implicitWidth)
+        }
+
         RowLayout {
             id: foodNameRow
             anchors.left: parent.left
@@ -31,6 +40,8 @@ Dialog {
             width: parent.width / 3
             spacing: 10
             Label {
+                id: nameLabel
+                width: formWindow.maxLabelWidth
                 text: "Name:"
                 font.bold: true
                 font.pixelSize: 15
@@ -54,7 +65,10 @@ Dialog {
             anchors.topMargin: 5
             height: 30
             width: parent.width / 3
+            spacing: 4
             Label {
+                id: gramsLabel
+                width: formWindow.maxLabelWidth
                 text: "Grams:"
                 font.bold: true
                 font.pixelSize: 15
@@ -79,6 +93,8 @@ Dialog {
             width: parent.width / 3
             spacing: 20
             Label {
+                width: formWindow.maxLabelWidth
+                id: kcalLabel
                 text: "Kcal:"
                 font.bold: true
                 font.pixelSize: 15
@@ -101,7 +117,10 @@ Dialog {
             anchors.topMargin: 5
             height: 30
             width: parent.width / 3
+            spacing: 0
             Label {
+                id: protLabel
+                width: formWindow.maxLabelWidth
                 text: "Protein:"
                 font.bold: true
                 font.pixelSize: 15
@@ -124,8 +143,9 @@ Dialog {
             anchors.topMargin: 5
             height: 30
             width: parent.width / 3
-            spacing: 25
+            spacing: 21
             Label {
+                id: fatLabel
                 text: "Fats:"
                 font.bold: true
                 font.pixelSize: 15
@@ -148,8 +168,10 @@ Dialog {
             anchors.topMargin: 5
             height: 30
             width: parent.width / 3
-            spacing: 10
+            spacing: 8
             Label {
+                id: carbLabel
+                width: formWindow.maxLabelWidth
                 text: "Carbs:"
                 font.bold: true
                 font.pixelSize: 15
@@ -197,6 +219,7 @@ Dialog {
         anchors.horizontalCenter: parent.horizontalCenter
         text: qsTr("Delete")
         onClicked: {
+            //Setting active to true and false to remove Dialog from cache and force Reload
             if (deleteFoodDialogLoader.active === true) {
                 deleteFoodDialogLoader.active = false
             }
@@ -220,6 +243,7 @@ Dialog {
                 }
             }
             onAccepted: {
+                foodManagerModel.removeFoodItem(foodListView.currentIndex)
                 deleteFoodDialog.close()
                 editFoodDialog.close()
             }
