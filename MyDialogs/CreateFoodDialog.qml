@@ -30,7 +30,6 @@ Dialog {
         spacing: 10
         Label {
             id: nameLabel
-            width: formWindow.maxLabelWidth
             text: "Name:"
             font.bold: true
             font.pixelSize: 15
@@ -55,7 +54,6 @@ Dialog {
         spacing: 4
         Label {
             id: gramsLabel
-            width: formWindow.maxLabelWidth
             text: "Grams:"
             font.bold: true
             font.pixelSize: 15
@@ -78,7 +76,6 @@ Dialog {
         width: parent.width / 3
         spacing: 20
         Label {
-            width: formWindow.maxLabelWidth
             id: kcalLabel
             text: "Kcal:"
             font.bold: true
@@ -103,7 +100,6 @@ Dialog {
         spacing: 0
         Label {
             id: protLabel
-            width: formWindow.maxLabelWidth
             text: "Protein:"
             font.bold: true
             font.pixelSize: 15
@@ -150,7 +146,6 @@ Dialog {
         spacing: 8
         Label {
             id: carbLabel
-            width: formWindow.maxLabelWidth
             text: "Carbs:"
             font.bold: true
             font.pixelSize: 15
