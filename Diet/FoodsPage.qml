@@ -36,26 +36,30 @@ Page {
     Component {
         id: foodItemDelegate
         Rectangle {
-            id: foodRect
+            id: foodElementContainer
             width: parent.width
             height: 40
             color: "gray"
             border.color: "black"
             radius: 10
+            //Respond to loader changes
             onHeightChanged: {
-                if (foodRect.height !== 40) {
-                    nonActivefoodItem.active = false
-                    editFoodDialogLoader.active = true
+                if (foodElementContainer.height !== 40) {
+                    nonActivefoodLoader.active = false
+                    editFoodElementLoader.active = true
+
+                    //Need to disable mouse area to allow changes on
+                    //TextFields inside the Rectangle
                     mouseArea.enabled = false
                 } else {
-                    editFoodDialogLoader.active = false
-                    nonActivefoodItem.active = true
+                    editFoodElementLoader.active = false
+                    nonActivefoodLoader.active = true
                     mouseArea.enabled = true
                 }
             }
 
             Loader {
-                id: nonActivefoodItem
+                id: nonActivefoodLoader
                 anchors.fill: parent
                 sourceComponent: Rectangle {
                     radius: 10
@@ -72,14 +76,8 @@ Page {
                 active: true
             }
 
-            // Text {
-            //     text: foodManagerModel.foods[index].name
-            //     font.pixelSize: 20
-            //     font.bold: true
-            //     anchors.centerIn: parent
-            // }
             Loader {
-                id: editFoodDialogLoader
+                id: editFoodElementLoader
                 anchors.fill: parent
                 active: false
                 sourceComponent: Rectangle {
@@ -87,21 +85,27 @@ Page {
                     color: "gray"
                     border.color: "black"
                     anchors.fill: parent
-                    Button {
-                        id: minimizeRect
+                    Rectangle {
+                        id: minimizeButton
+                        radius: 10
+                        color: "gray"
+                        border.color: "black"
                         anchors.top: parent.top
                         anchors.right: parent.right
                         anchors.left: parent.left
-                        height: 50
-                        onClicked: {
-                            foodRect.height = 40
+                        height: 45
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                foodElementContainer.height = 40
+                            }
                         }
                     }
                     Text {
                         anchors.top: parent.top
                         anchors.horizontalCenter: parent.horizontalCenter
                         anchors.topMargin: 10
-                        text: "Edit " + foodManagerModel.foods[foodListView.currentIndex].name
+                        text: "Edit " + foodManagerModel.foods[foodListView.currentIndex].name + ":"
                         font.bold: true
                         font.pixelSize: 20
                     }
@@ -114,7 +118,7 @@ Page {
                         anchors.topMargin: 50
                         height: 30
                         width: parent.width / 3
-                        spacing: 8
+                        spacing: 4
                         Label {
                             id: gramsLabel
                             text: "Grams:"
@@ -127,8 +131,13 @@ Page {
                             font.bold: true
                             font.pixelSize: 15
 
-                            // This seems to be a hack, but it is able to get the name inside the clicked item;
                             text: foodManagerModel.foods[foodListView.currentIndex].grams_value
+                            onEditingFinished: {
+                                if (parseInt(foodManagerModel.foods[foodListView.currentIndex].grams_value) !== parseInt(
+                                            foodGrams.text)) {
+                                    saveButton.valid = true
+                                }
+                            }
                         }
                     }
                     RowLayout {
@@ -152,8 +161,13 @@ Page {
                             font.bold: true
                             font.pixelSize: 15
 
-                            // This seems to be a hack, but it is able to get the name inside the clicked item;
                             text: foodManagerModel.foods[foodListView.currentIndex].calories
+                            onEditingFinished: {
+                                if (parseInt(foodManagerModel.foods[foodListView.currentIndex].calories) !== parseInt(
+                                            foodKcal.text)) {
+                                    saveButton.valid = true
+                                }
+                            }
                         }
                     }
                     RowLayout {
@@ -177,8 +191,13 @@ Page {
                             font.bold: true
                             font.pixelSize: 15
 
-                            // This seems to be a hack, but it is able to get the name inside the clicked item;
                             text: foodManagerModel.foods[foodListView.currentIndex].proteins
+                            onEditingFinished: {
+                                if (parseInt(foodManagerModel.foods[foodListView.currentIndex].proteins) !== parseInt(
+                                            foodProt.text)) {
+                                    saveButton.valid = true
+                                }
+                            }
                         }
                     }
                     RowLayout {
@@ -202,8 +221,13 @@ Page {
                             font.bold: true
                             font.pixelSize: 15
 
-                            // This seems to be a hack, but it is able to get the name inside the clicked item;
                             text: foodManagerModel.foods[foodListView.currentIndex].fats
+                            onEditingFinished: {
+                                if (parseInt(foodManagerModel.foods[foodListView.currentIndex].fats)
+                                        !== parseInt(foodFat.text)) {
+                                    saveButton.valid = true
+                                }
+                            }
                         }
                     }
                     RowLayout {
@@ -223,35 +247,67 @@ Page {
                         }
 
                         TextField {
-                            //TODO:: Replace this for a combination of Label and TextField
                             id: foodCarbs
                             font.bold: true
                             font.pixelSize: 15
 
-                            // This seems to be a hack, but it is able to get the name inside the clicked item;
                             text: foodManagerModel.foods[foodListView.currentIndex].carbs
+                            onEditingFinished: {
+                                if (parseInt(
+                                            foodManagerModel.foods[foodListView.currentIndex].carbs)
+                                        !== parseInt(foodCarbs.text)) {
+                                    saveButton.valid = true
+                                }
+                            }
                         }
                     }
                     Button {
-                        id: doneButton
+                        id: saveButton
                         anchors.bottom: parent.bottom
                         anchors.right: parent.right
+                        anchors.bottomMargin: 5
+                        anchors.rightMargin: 5
                         text: qsTr("Save")
+                        visible: false
+                        property bool valid: false
+                        onValidChanged: {
+                            if (valid === true) {
+                                saveButton.visible = true
+                            } else {
+                                saveButton.visible = false
+                            }
+                        }
+
                         onClicked: {
-                            foodManagerModel.foods[foodListView.currentIndex].grams_value
-                                    = foodGrams.text
-                            foodManagerModel.foods[foodListView.currentIndex].calories
-                                    = foodKcal.text
-                            foodManagerModel.foods[foodListView.currentIndex].proteins
-                                    = foodProt.text
-                            foodManagerModel.foods[foodListView.currentIndex].fats = foodFat.text
-                            foodManagerModel.foods[foodListView.currentIndex].carbs = foodCarbs.text
+                            if (saveButton.valid) {
+
+                                foodManagerModel.foods[foodListView.currentIndex].grams_value
+                                        = foodGrams.text
+                                foodManagerModel.foods[foodListView.currentIndex].calories
+                                        = foodKcal.text
+                                foodManagerModel.foods[foodListView.currentIndex].proteins
+                                        = foodProt.text
+                                foodManagerModel.foods[foodListView.currentIndex].fats
+                                        = foodFat.text
+                                foodManagerModel.foods[foodListView.currentIndex].carbs
+                                        = foodCarbs.text
+
+                                //Force Reload on the loader by setting it to false;
+                                if (saveFoodChangesLoader.active === true) {
+                                    saveFoodChangesLoader.active = false
+                                }
+                                saveFoodChangesLoader.active = true
+                                saveFoodChangesLoader.item.open()
+                                saveButton.valid = false
+                            }
                         }
                     }
                     Button {
                         id: deleteButton
                         anchors.bottom: parent.bottom
                         anchors.left: parent.left
+                        anchors.bottomMargin: 5
+                        anchors.leftMargin: 5
                         text: qsTr("Delete")
                         onClicked: {
                             //Setting active to true and false to remove Dialog from cache and force Reload
@@ -272,29 +328,19 @@ Page {
                 onClicked: {
 
                     foodListView.currentIndex = index
-                    // console.log(foodListView.currentIndex)
-                    // console.log(foodListView.currentItem)
-                    // if (editFoodDialogLoader.active === true) {
-                    //     editFoodDialogLoader.active = false
-                    // }
-
-                    // editFoodDialogLoader.active = true
-                    // editFoodDialogLoader.item.open()
+                    //Loop over List and close Edit menu on all elements that are not
+                    //the active one;
                     for (var i = 0; i < foodListView.count; i++) {
                         if (i !== foodListView.currentIndex) {
                             foodListView.itemAtIndex(i).height = 40
                         }
                     }
-                    if (foodRect.height === 40) {
-                        foodRect.height = 230
-                        nonActivefoodItem.active = false
-                        editFoodDialogLoader.active = true
-                    } //else {
-
-                    //editFoodDialogLoader.active = false
-                    //nonActivefoodItem.active = true
-                    //foodRect.height = 40
-                    //}
+                    // Increase height and load in Edit Menu for active element
+                    if (foodElementContainer.height === 40) {
+                        foodElementContainer.height = 230
+                        nonActivefoodLoader.active = false
+                        editFoodElementLoader.active = true
+                    }
                 }
             }
         }
@@ -330,13 +376,6 @@ Page {
         }
     }
 
-    // Loader {
-    //     id: editFoodDialogLoader
-    //     anchors.fill: parent
-    //     sourceComponent: EditFoodDialog {
-    //         id: editFoodDialog
-    //     }
-    // }
     Loader {
         id: deleteFoodDialogLoader
         active: false
@@ -359,6 +398,17 @@ Page {
             onRejected: {
                 deleteFoodDialog.close()
             }
+        }
+    }
+
+    Loader {
+        id: saveFoodChangesLoader
+        active: false
+        sourceComponent: MessageDialog {
+            id: saveFoodChangesDialog
+            text: qsTr("Changes have been saved!")
+            buttons: MessageDialog.Ok
+            onButtonClicked: saveFoodChangesDialog.close()
         }
     }
 
