@@ -5,8 +5,8 @@ import QtQuick.Dialogs
 
 Dialog {
     id: foodFormDialog
-    height: (parent.height * 2 / 3) - 65
-    width: parent.width - 40
+    height: (parent.height * 2 / 3) - 90
+    width: parent.width - 60
     anchors.centerIn: parent
     modal: true
     focus: true
