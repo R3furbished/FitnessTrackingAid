@@ -14,6 +14,8 @@ public:
 
     Q_INVOKABLE void addFoodItem(const QString &name, int calories,int grams = 100,int prots = 0,int fats= 0,int carbs=0);// This has to take info from Qt side and pass it into the FoodItem constructor
     Q_INVOKABLE void removeFoodItem(int index);
+    Q_INVOKABLE FoodItem* getFoodItemAt(int index);
+    Q_INVOKABLE FoodItem* getFoodItemWithName(const QString &name);
 
 
 signals:

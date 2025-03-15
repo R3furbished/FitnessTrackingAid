@@ -23,8 +23,10 @@ public:
     void setProteins(int newProteins);
     int carbs() const;
     void setCarbs(int newCarbs);
-    QList<FoodItem> getFoods() const;
-    void setFoods(const QList<FoodItem> &newFoods);
+    QList<FoodItem *> getFoods() const;
+    void setFoods(const QList<FoodItem *> &newFoods);
+    void addFood(FoodItem* food);
+    void removeFood(int index);
 
 signals:
 
@@ -43,14 +45,14 @@ private:
     int m_fats;
     int m_proteins;
     int m_carbs;
-    QList<FoodItem> foods;
+    QList<FoodItem *> m_foods;
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
     Q_PROPERTY(QString identifier READ identifier WRITE setIdentifier NOTIFY identifierChanged FINAL)
     Q_PROPERTY(int calories READ calories WRITE setCalories NOTIFY caloriesChanged FINAL)
     Q_PROPERTY(int fats READ fats WRITE setFats NOTIFY fatsChanged FINAL)
     Q_PROPERTY(int proteins READ proteins WRITE setProteins NOTIFY proteinsChanged FINAL)
     Q_PROPERTY(int carbs READ carbs WRITE setCarbs NOTIFY carbsChanged FINAL)
-    Q_PROPERTY(QList<FoodItem> foods READ getFoods WRITE setFoods NOTIFY foodsChanged FINAL)
+    Q_PROPERTY(QList<FoodItem *> foods READ getFoods WRITE setFoods NOTIFY foodsChanged FINAL)
 };
 
 #endif // MEALITEM_H

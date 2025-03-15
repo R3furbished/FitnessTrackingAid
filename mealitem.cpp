@@ -1,7 +1,8 @@
 #include "mealitem.h"
 
 MealItem::MealItem(QObject *parent)
-    : QObject{parent}
+    : QObject{parent} , m_foods(QList<FoodItem *>{}), m_name(),m_identifier(),m_calories(0),
+    m_fats(0),m_proteins(0),m_carbs(0)
 {}
 
 QString MealItem::name() const
@@ -82,15 +83,20 @@ void MealItem::setCarbs(int newCarbs)
     emit carbsChanged();
 }
 
-QList<FoodItem> MealItem::getFoods() const
+QList<FoodItem *> MealItem::getFoods() const
 {
-    return foods;
+    return m_foods;
 }
 
-void MealItem::setFoods(const QList<FoodItem> &newFoods)
+void MealItem::setFoods(const QList<FoodItem *> &newFoods)
 {
     // if (foods == newFoods)
     //     return;
     // foods = newFoods;
     // emit foodsChanged();
+}
+
+void MealItem::addFood(FoodItem* food)
+{
+    m_foods.append(food);
 }

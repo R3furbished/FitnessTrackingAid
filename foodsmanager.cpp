@@ -15,7 +15,13 @@ void FoodsManager::addFoodItem(const QString &name, int calories,int grams,int p
 {
     // Create a new FoodItem object , pass in the parent and add it to m_foods list;
 
-    //foodManager.addFoodItem("Banana",120,5,40,50); -> This is how I want to call it
+    for(int i= 0; i < m_foods.length();i++){
+        //check if foodItem already exists;
+        if(m_foods[i]->name() == name){
+            return;
+        }
+    }
+
     FoodItem *new_food_item = new FoodItem(this,name,calories,prots,fats,carbs,grams);
     m_foods.append(new_food_item);
     emit foodsChanged();
@@ -31,4 +37,22 @@ void FoodsManager::removeFoodItem(int index)
         m_foods.removeAt(index);
         emit foodsChanged();
     }
+}
+
+FoodItem* FoodsManager::getFoodItemAt(int index)
+{
+    if(index < m_foods.length()){
+        return m_foods[index];
+    }
+    return nullptr;
+}
+
+FoodItem* FoodsManager::getFoodItemWithName(const QString &name)
+{
+    for(int i= 0; i < m_foods.length();i++){
+        if(m_foods[i]->name() == name){
+            return m_foods[i];
+        }
+    }
+    return nullptr;
 }

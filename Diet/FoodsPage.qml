@@ -27,6 +27,7 @@ Page {
         ListView {
             id: foodListView
             anchors.fill: parent
+            clip: true
             model: foodManagerModel.foods
             delegate: foodItemDelegate
             currentIndex: -1

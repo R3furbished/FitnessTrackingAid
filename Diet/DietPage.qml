@@ -43,7 +43,7 @@ Page {
             id: mealListView
             anchors.fill: parent
             model: mealManagerModel.meals
-            delegate: foodItemDelegate
+            delegate: mealDelegate
             currentIndex: -1
         }
     }

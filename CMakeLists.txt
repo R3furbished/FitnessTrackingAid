@@ -40,6 +40,7 @@ qt_add_qml_module(appDietWorkoutTracker
         SOURCES dayofeating.h dayofeating.cpp
         SOURCES foodsmanager.h foodsmanager.cpp
         QML_FILES MyDialogs/EditFoodDialog.qml
+        SOURCES mealsmanager.h mealsmanager.cpp
 )
 
 set_target_properties(appDietWorkoutTracker PROPERTIES
