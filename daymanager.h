@@ -13,7 +13,7 @@ public:
     Q_INVOKABLE bool hasDayWithDate(QString date);
     Q_INVOKABLE DailyMeals* getDayWithDate(QString date);
     Q_INVOKABLE DailyMeals* getDayAt(int index);
-
+    Q_INVOKABLE DailyMeals* getLatestDay();
     QList<DailyMeals *> days() const;
 
 signals:

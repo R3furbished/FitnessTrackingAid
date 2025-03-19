@@ -42,3 +42,7 @@ DailyMeals* DayManager::getDayAt(int index)
 {
     return m_days[index];
 }
+DailyMeals* DayManager::getLatestDay()
+{
+    return m_days.last();
+}

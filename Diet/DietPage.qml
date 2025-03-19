@@ -23,16 +23,14 @@ Page {
         anchors.topMargin: 10
         color: "gray"
         Text {
+            id: macroPlacementTextField
             anchors.centerIn: parent
-            text: new Date().toLocaleDateString(Qt.locale().shortFormat)
+            text: ""
             font.bold: true
         }
-        Button {
-            text: "a"
-            anchors.top: parent.top
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-            width: 20
+        MouseArea {
+            anchors.fill: parent
+
             onClicked: {
                 //TODO!!!!!!!
                 // Eventually should be automatic on APP loading instead of button pressing;
@@ -42,6 +40,8 @@ Page {
 
                     dayManagerModel.newDay(new Date().toLocaleDateString(
                                                Qt.locale().shortFormat))
+                    macroPlacementTextField.text = dayManagerModel.getLatestDay(
+                                ).date
                 }
             }
         }
