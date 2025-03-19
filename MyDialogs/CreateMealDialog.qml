@@ -16,24 +16,37 @@ Dialog {
         color: "lightblue"
         radius: 10
         height: 60
+        Text {
+            id: macrosText
+            anchors.centerIn: parent
+            text: "Macro Values goes here."
+            font.bold: true
+        }
+    }
+
+    TextField {
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: macrosDisplay.bottom
+        id: searchBar
+        placeholderText: "Food Name"
+        onEditingFinished: {
+            macrosText.text = foodManagerModel.getFoodItemWithName(
+                        searchBar.text).proteins
+        }
     }
 
     ListView {
         id: foodListView
-        anchors.top: macrosDisplay.bottom
+        anchors.top: searchBar.bottom
         anchors.topMargin: 10
         height: parent.height / 2
         width: parent.width
         clip: true
-        model: foodManagerModel.foods
+        model: foodManagerModel.getFoodItemWithName(searchBar.text)
         delegate: ItemDelegate {
             id: foodItemDelegate
             width: parent.width
             height: 40
-
-            required property int index
-
-            onClicked: foodListView.currentIndex = index
 
             Loader {
                 //TODO:: trying to create a selectable delegate variant
@@ -47,9 +60,10 @@ Dialog {
                     color: "gray"
                     border.color: "black"
                     anchors.fill: parent
+
                     Text {
                         id: foodName
-                        text: foodManagerModel.foods[index].name
+                        text: foodListView.model.name
                         font.pixelSize: 20
                         font.bold: true
                         anchors.left: parent.left
@@ -72,27 +86,12 @@ Dialog {
                             console.log("add was pressed.")
                         }
                     }
-
-                    // MouseArea {
-                    //     id: mouseAreaForCollor
-                    //     width: parent.width - addButton.implicitWidth
-                    //     height: parent.height
-                    //     onClicked: {
-
-                    //         if (recting.color.toString() === "#808080") {
-                    //             recting.color = "lightblue"
-                    //         } else {
-                    //             recting.color = "gray"
-                    //         }
-                    //     }
-                    // }
                 }
                 active: true
             }
         }
         currentIndex: -1
     }
-
     Button {
         anchors.bottom: parent.bottom
         anchors.left: parent.left

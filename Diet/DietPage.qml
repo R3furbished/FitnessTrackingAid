@@ -27,6 +27,24 @@ Page {
             text: new Date().toLocaleDateString(Qt.locale().shortFormat)
             font.bold: true
         }
+        Button {
+            text: "a"
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            width: 20
+            onClicked: {
+                //TODO!!!!!!!
+                // Eventually should be automatic on APP loading instead of button pressing;
+                if (!dayManagerModel.hasDayWithDate(
+                            new Date().toLocaleDateString(Qt.locale(
+                                                              ).shortFormat))) {
+
+                    dayManagerModel.newDay(new Date().toLocaleDateString(
+                                               Qt.locale().shortFormat))
+                }
+            }
+        }
     }
 
     Rectangle {
@@ -79,6 +97,13 @@ Page {
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                //TODO:: Is this the best way of doing it?
+                // We need 2 methods to be created one that gets the currentDay from the manager;
+                // and another that from that day calls createMeal()
+                dayManagerModel.getDayWithDate(
+                            new Date().toLocaleDateString(
+                                Qt.locale().shortFormat)).createMeal()
+
                 //Setting active to true and false to force the Loader to uncache the Dialog.
                 if (addMealDialogLoader.active === true) {
                     addMealDialogLoader.active = false

@@ -1,5 +1,6 @@
 #include "foodsmanager.h"
 
+#include<QDebug>
 
 FoodsManager::FoodsManager(QObject *parent)
     : QObject{parent},
@@ -49,10 +50,12 @@ FoodItem* FoodsManager::getFoodItemAt(int index)
 
 FoodItem* FoodsManager::getFoodItemWithName(const QString &name)
 {
-    for(int i= 0; i < m_foods.length();i++){
-        if(m_foods[i]->name() == name){
+    if(name != ""){
+        for(int i= 0; i < m_foods.length();i++){
+        if(m_foods[i]->name().contains(name)){
             return m_foods[i];
         }
     }
-    return nullptr;
+    }
+        return nullptr;
 }
