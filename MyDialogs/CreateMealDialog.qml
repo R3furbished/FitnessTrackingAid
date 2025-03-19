@@ -24,14 +24,21 @@ Dialog {
         }
     }
 
-    TextField {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: macrosDisplay.bottom
+    Rectangle {
+        width: parent.width
         id: searchBar
-        placeholderText: "Food Name"
-        onEditingFinished: {
-            macrosText.text = foodManagerModel.getFoodItemWithName(
-                        searchBar.text).proteins
+        anchors.top: macrosDisplay.bottom
+        color: "gray"
+        radius: 10
+        height: 30
+        TextField {
+            id: searchBarText
+            anchors.fill: parent
+            placeholderText: "Food Name"
+            onEditingFinished: {
+                macrosText.text = foodManagerModel.getFoodItemWithName(
+                            searchBar.text).proteins
+            }
         }
     }
 
@@ -42,7 +49,8 @@ Dialog {
         height: parent.height / 2
         width: parent.width
         clip: true
-        model: foodManagerModel.getFoodItemWithName(searchBar.text)
+        //TODO::getFoodItemWithName() should return a List
+        model: foodManagerModel.getFoodItemWithName(searchBarText.text)
         delegate: ItemDelegate {
             id: foodItemDelegate
             width: parent.width
@@ -63,7 +71,7 @@ Dialog {
 
                     Text {
                         id: foodName
-                        text: foodListView.model.name
+                        text: foodListView.model[index].name
                         font.pixelSize: 20
                         font.bold: true
                         anchors.left: parent.left

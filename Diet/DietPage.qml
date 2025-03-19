@@ -28,23 +28,6 @@ Page {
             text: ""
             font.bold: true
         }
-        MouseArea {
-            anchors.fill: parent
-
-            onClicked: {
-                //TODO!!!!!!!
-                // Eventually should be automatic on APP loading instead of button pressing;
-                if (!dayManagerModel.hasDayWithDate(
-                            new Date().toLocaleDateString(Qt.locale(
-                                                              ).shortFormat))) {
-
-                    dayManagerModel.newDay(new Date().toLocaleDateString(
-                                               Qt.locale().shortFormat))
-                    macroPlacementTextField.text = dayManagerModel.getLatestDay(
-                                ).date
-                }
-            }
-        }
     }
 
     Rectangle {
@@ -94,12 +77,37 @@ Page {
         width: 60
         radius: 30
         color: "#872341"
+        Text {
+            text: "+"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: -15
+            font.bold: true
+            font.pixelSize: 70
+        }
+
         MouseArea {
             anchors.fill: parent
             onClicked: {
+                //TODO!!!!!!!
+                // Eventually should be automatic on APP loading instead of button pressing;
+                if (!dayManagerModel.hasDayWithDate(
+                            new Date().toLocaleDateString(Qt.locale(
+                                                              ).shortFormat))) {
+
+                    dayManagerModel.newDay(new Date().toLocaleDateString(
+                                               Qt.locale().shortFormat))
+                    macroPlacementTextField.text = dayManagerModel.getLatestDay(
+                                ).date
+                }
                 //TODO:: Is this the best way of doing it?
                 // We need 2 methods to be created one that gets the currentDay from the manager;
                 // and another that from that day calls createMeal()
+//                !Todo("Create this meal here , and use it inside the Dialog
+//but in case the cancell button is press or we close
+//the dialog, the meal that was created here should be
+//deleted by calling:
+//>dayManagerModel.currentDay().deleteLastMeal()")
                 dayManagerModel.getDayWithDate(
                             new Date().toLocaleDateString(
                                 Qt.locale().shortFormat)).createMeal()

@@ -48,14 +48,15 @@ FoodItem* FoodsManager::getFoodItemAt(int index)
     return nullptr;
 }
 
-FoodItem* FoodsManager::getFoodItemWithName(const QString &name)
+QList<FoodItem*> FoodsManager::getFoodItemWithName(const QString &name)
 {
+  QList<FoodItem*> returning_list;
     if(name != ""){
         for(int i= 0; i < m_foods.length();i++){
         if(m_foods[i]->name().contains(name)){
-            return m_foods[i];
+            returning_list.append(m_foods[i]);
         }
     }
     }
-        return nullptr;
+    return returning_list;
 }

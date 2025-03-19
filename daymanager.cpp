@@ -1,4 +1,5 @@
 #include "daymanager.h"
+#include <QDebug>
 
 DayManager::DayManager(QObject *parent)
     : QObject{parent},
