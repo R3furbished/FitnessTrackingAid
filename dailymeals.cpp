@@ -1,5 +1,5 @@
 #include "dailymeals.h"
-
+#include <QDebug>
 
 DailyMeals::DailyMeals(QObject *parent)
     : QObject{parent},
@@ -21,14 +21,17 @@ void DailyMeals::addMeal(MealItem &meal)
 
 }
 
-void DailyMeals::createMeal()
+void DailyMeals::createMeal(QString stamp)
 {
     MealItem *newMeal = new MealItem();
+    newMeal->setTimeStamp(stamp);
     m_meals.append(newMeal);
+    emit mealsChanged();
 }
 
 void DailyMeals::deleteLastMeal(){
     if (!m_meals.isEmpty()) m_meals.removeLast();
+    emit mealsChanged();
 }
 
 MealItem* DailyMeals::getLatestMeal(){
@@ -40,6 +43,7 @@ MealItem* DailyMeals::getLatestMeal(){
 
 void DailyMeals::setDate(QString date){
     m_date = date;
+    emit dateChanged();
 }
 
 void DailyMeals::removeMeal(int index)

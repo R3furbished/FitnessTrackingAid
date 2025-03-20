@@ -16,7 +16,6 @@ int main(int argc, char *argv[])
 
     FoodsManager foodManager;
     DayManager dayManager;
-    DailyMeals day;
     UserFitnessInfo user;
 
     user.setWeight(61);
@@ -42,7 +41,6 @@ int main(int argc, char *argv[])
 
     engine.rootContext()->setContextProperty("foodManagerModel" , &foodManager);
     engine.rootContext()->setContextProperty("dayManagerModel" , &dayManager);
-    engine.rootContext()->setContextProperty("dayModel" , &day);
     engine.rootContext()->setContextProperty("user" , &user);
 
     QObject::connect(

@@ -80,24 +80,6 @@ Page {
                 }
             }
         }
-
-        // Text {
-        //     id: macroLegendTextField
-        //     anchors.horizontalCenter: parent.horizontalCenter
-        //     anchors.top: parent.top
-        //     text: "   Kcal  |  Prot  |  Fats  | Carbs "
-        //     font.bold: true
-        // }
-        // Text {
-        //     id: macroPlacementTextField
-        //     anchors.horizontalCenter: parent.horizontalCenter
-        //     anchors.bottom: parent.bottom
-        //     text: "" + macroPlacement.kcal + "/" + user.daily_cal + " "
-        //           + macroPlacement.prot + "/" + user.prot_target + " "
-        //           + macroPlacement.fat + "/" + user.fat_target + " "
-        //           + macroPlacement.carb + "/" + user.carb_target + " "
-        //     font.bold: true
-        // }
     }
 
     Rectangle {
@@ -109,32 +91,41 @@ Page {
         height: parent.height - 200
         color: "#872341"
 
-        //Get the ListView in here;
         ListView {
             id: mealListView
             anchors.fill: parent
-            model: mealManagerModel.meals
-            delegate: mealDelegate
-            currentIndex: -1
-        }
-    }
-    Component {
-        id: mealDelegate
-        Rectangle {
-            width: parent.width
-            height: 40
-            color: "gray"
-            border.color: "black"
+            //we index the model at 0, because we always prepend when creating a newDay
+            //therefor the most recent day is always at position 0.
+            model: dayManagerModel.days[0].meals
+            delegate: ItemDelegate {
+                id: mealItemDelegate
+                width: parent.width
+                height: 40
 
-            radius: 10
-            //TODO:: Actually think how to display each meal in the list
-            Text {
-                text: mealManagerModel.meals[index].name
-                font.pixelSize: 20
-                font.bold: true
-                anchors.centerIn: parent
+                Loader {
+                    anchors.fill: parent
+                    sourceComponent: Rectangle {
+                        id: re
+                        radius: 10
+                        color: "gray"
+                        border.color: "black"
+                        anchors.fill: parent
+
+                        Text {
+                            id: mealDate
+                            text: mealListView.model[index].timeStamp
+                            font.pixelSize: 20
+                            font.bold: true
+                            anchors.left: parent.left
+                            anchors.leftMargin: 10
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    active: true
+                }
             }
-            //TODO:: add a mouse area to get info on clicked Meal;
+
+            currentIndex: -1
         }
     }
 
@@ -176,9 +167,9 @@ Page {
                 //the dialog, the meal that was created here should be
                 //deleted by calling:
                 //>dayManagerModel.currentDay().deleteLastMeal()
-                dayManagerModel.getDayWithDate(
-                            new Date().toLocaleDateString(
-                                Qt.locale().shortFormat)).createMeal()
+                dayManagerModel.getLatestDay().createMeal(Qt.formatTime(
+                                                              new Date(),
+                                                              "hh:mm:ss"))
 
                 //Setting active to true and false to force the Loader to uncache the Dialog.
                 if (addMealDialogLoader.active === true) {

@@ -11,11 +11,13 @@ QList<DailyMeals *> DayManager::days() const
     return m_days;
 }
 
+
 void DayManager::newDay(QString date){
     //Add a new empty day to the list of days
     DailyMeals *newDay = new DailyMeals();
     newDay->setDate(date);
-    m_days.append(newDay);
+    m_days.prepend(newDay);
+    emit daysChanged();
 
 }
 
@@ -44,6 +46,10 @@ DailyMeals* DayManager::getDayAt(int index)
     return m_days[index];
 }
 DailyMeals* DayManager::getLatestDay()
-{
+
+{   if(!m_days.isEmpty()){
+        qDebug() << "Latest DAy is:" << m_days.last();
     return m_days.last();
+    }
+        return nullptr;
 }

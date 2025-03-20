@@ -35,10 +35,6 @@ Dialog {
             id: searchBarText
             anchors.fill: parent
             placeholderText: "Food Name"
-            onEditingFinished: {
-                macrosText.text = foodManagerModel.getFoodItemWithName(
-                            searchBar.text).proteins
-            }
         }
     }
 
@@ -91,10 +87,7 @@ Dialog {
                         text: "ADD"
                         onClicked: {
                             // Getting the meal that was just created when clicking the button in DietPage
-                            dayManagerModel.getDayWithDate(
-                                        new Date().toLocaleDateString(
-                                            Qt.locale(
-                                                ).shortFormat)).getLatestMeal(
+                            dayManagerModel.getLatestDay().getLatestMeal(
                                         ).addFood(foodListView.model[index])
                         }
                     }
@@ -126,9 +119,7 @@ Dialog {
         height: parent.height / 4
         width: parent.width
         clip: true
-        model: dayManagerModel.getDayWithDate(
-                   new Date().toLocaleDateString(
-                       Qt.locale().shortFormat)).getLatestMeal().foods
+        model: dayManagerModel.getLatestDay().getLatestMeal().foods
         delegate: ItemDelegate {
             id: currentMealItemDelegate
             width: parent.width
@@ -173,8 +164,6 @@ Dialog {
                                                 ).shortFormat)).getLatestMeal(
                                         ).removeFood(
                                         currentMealListView.model[index])
-
-                            console.log("removed was pressed.")
                         }
                     }
                 }
@@ -189,6 +178,9 @@ Dialog {
         text: qsTr("Cancel")
         onClicked: {
             mealFormDialog.close()
+            dayManagerModel.getDayWithDate(
+                        new Date().toLocaleDateString(
+                            Qt.locale().shortFormat)).deleteLastMeal()
         }
     }
 
@@ -204,5 +196,8 @@ Dialog {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         text: qsTr("Done")
+        onClicked: {
+            mealFormDialog.close()
+        }
     }
 }

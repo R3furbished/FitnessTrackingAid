@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "dailymeals.h"
+#include "mealitem.h"
 
 class DayManager : public QObject
 {

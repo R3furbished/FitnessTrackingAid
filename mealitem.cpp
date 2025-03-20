@@ -2,35 +2,24 @@
 
 #include<QDebug>
 MealItem::MealItem(QObject *parent)
-    : QObject{parent} , m_foods(QList<FoodItem *>{}), m_name(),m_identifier(),m_calories(0),
+    : QObject{parent} , m_foods(QList<FoodItem *>{}), m_timeStamp(""),m_calories(0),
     m_fats(0),m_proteins(0),m_carbs(0)
 {}
 
-QString MealItem::name() const
+QString MealItem::timeStamp() const
 {
-    return m_name;
+    return m_timeStamp;
 }
 
-void MealItem::setName(const QString &newName)
+void MealItem::setTimeStamp(const QString &timeStamp)
 {
-    if (m_name == newName)
+    if (m_timeStamp == timeStamp)
         return;
-    m_name = newName;
-    emit nameChanged();
+     m_timeStamp =  timeStamp;
+    emit timeStampChanged();
 }
 
-QString MealItem::identifier() const
-{
-    return m_identifier;
-}
 
-void MealItem::setIdentifier(const QString &newIdentifier)
-{
-    if (m_identifier == newIdentifier)
-        return;
-    m_identifier = newIdentifier;
-    emit identifierChanged();
-}
 
 int MealItem::calories() const
 {

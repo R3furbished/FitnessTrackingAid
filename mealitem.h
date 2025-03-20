@@ -11,10 +11,8 @@ public:
     explicit MealItem(QObject *parent = nullptr);
     //TODO:: build the constructor for MealItem
 
-    QString name() const;
-    void setName(const QString &newName);
-    QString identifier() const;
-    void setIdentifier(const QString &newIdentifier);
+    QString timeStamp() const;
+    void setTimeStamp(const QString &newName);
     int calories() const;
     void setCalories(int newCalories);
     int fats() const;
@@ -30,8 +28,7 @@ public:
 
 signals:
 
-    void nameChanged();
-    void identifierChanged();
+    void timeStampChanged();
     void caloriesChanged();
     void fatsChanged();
     void proteinsChanged();
@@ -39,15 +36,13 @@ signals:
     void foodsChanged();
 
 private:
-    QString m_name;
-    QString m_identifier;
+    QString m_timeStamp;
     int m_calories;
     int m_fats;
     int m_proteins;
     int m_carbs;
     QList<FoodItem *> m_foods;
-    Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged FINAL)
-    Q_PROPERTY(QString identifier READ identifier WRITE setIdentifier NOTIFY identifierChanged FINAL)
+    Q_PROPERTY(QString timeStamp READ timeStamp WRITE setTimeStamp NOTIFY timeStampChanged FINAL)
     Q_PROPERTY(int calories READ calories WRITE setCalories NOTIFY caloriesChanged FINAL)
     Q_PROPERTY(int fats READ fats WRITE setFats NOTIFY fatsChanged FINAL)
     Q_PROPERTY(int proteins READ proteins WRITE setProteins NOTIFY proteinsChanged FINAL)
