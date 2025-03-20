@@ -167,9 +167,9 @@ Page {
                 //the dialog, the meal that was created here should be
                 //deleted by calling:
                 //>dayManagerModel.currentDay().deleteLastMeal()
-                dayManagerModel.getLatestDay().createMeal(Qt.formatTime(
-                                                              new Date(),
-                                                              "hh:mm:ss"))
+                // dayManagerModel.getLatestDay().createMeal(Qt.formatTime(
+                //                                               new Date(),
+                //                                               "hh:mm:ss"))
 
                 //Setting active to true and false to force the Loader to uncache the Dialog.
                 if (addMealDialogLoader.active === true) {

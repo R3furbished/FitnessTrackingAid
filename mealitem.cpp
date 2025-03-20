@@ -2,7 +2,7 @@
 
 #include<QDebug>
 MealItem::MealItem(QObject *parent)
-    : QObject{parent} , m_foods(QList<FoodItem *>{}), m_timeStamp(""),m_calories(0),
+    : QObject{parent} , m_foods(QList<FoodItem *>{}),m_gramsAtIndex(QList<int> {}), m_timeStamp(""),m_calories(0),
     m_fats(0),m_proteins(0),m_carbs(0)
 {}
 
@@ -31,6 +31,7 @@ void MealItem::setCalories(int newCalories)
     if (m_calories == newCalories)
         return;
     m_calories = newCalories;
+    qDebug()<< "Calories changed to" << m_calories;
     emit caloriesChanged();
 }
 
@@ -78,6 +79,12 @@ QList<FoodItem *> MealItem::getFoods() const
     return m_foods;
 }
 
+QList<int> MealItem::getGrams() const
+{
+    return m_gramsAtIndex;
+}
+
+
 void MealItem::setFoods(const QList<FoodItem *> &newFoods)
 {
     // if (foods == newFoods)
@@ -86,20 +93,47 @@ void MealItem::setFoods(const QList<FoodItem *> &newFoods)
     // emit foodsChanged();
 }
 
-void MealItem::addFood(FoodItem* food)
+void MealItem::addFood(FoodItem* food, int grams)
 {
-    qDebug() << "Food added to meal";
+
+    int protein = (grams * food->proteins()) / food->grams_value();
+    int carbs = (grams * food->carbs()) / food->grams_value();
+    int fats = (grams * food->fats()) / food->grams_value();
+    int calories = (grams * food->calories()) / food->grams_value();
+
+    this->setCalories(calories + m_calories);
+    this->setProteins(protein + m_proteins);
+    this->setCarbs(carbs + m_carbs);
+    this->setFats(fats + m_fats);
+
     m_foods.append(food);
-    //TODO:: after adding the food , need to
-    // calculate the macro values according to the grams
-    // and update the macro values in this meal;
+    m_gramsAtIndex.append(grams);
+    qDebug()<< "added food with grams" << calories;
     emit foodsChanged();
+    emit gramsChanged();
 }
-void MealItem::removeFood(int index)
+void MealItem::removeFood(int index, int grams)
 {
+    if(index < m_foods.size()){
+    FoodItem* food = m_foods[index];
+
+    int protein = (grams * food->proteins()) / food->grams_value();
+    int carbs = (grams * food->carbs()) / food->grams_value();
+    int fats = (grams * food->fats()) / food->grams_value();
+    int calories = (grams * food->calories()) / food->grams_value();
+
+    this->setCalories(m_calories - calories);
+    this->setProteins(m_proteins - protein);
+    this->setCarbs(m_carbs - carbs);
+    this->setFats(m_fats - fats);
+
     m_foods.removeAt(index);
-    //TODO:: after removing the food , need to
-    // calculate the macro values according to the grams
-    // and update the macro values in this meal;
+    m_gramsAtIndex.removeAt(index);
     emit foodsChanged();
+    emit gramsChanged();
+    }
+}
+
+bool MealItem::isEmpty(){
+    return m_calories == 0;
 }
