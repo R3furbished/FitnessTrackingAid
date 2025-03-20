@@ -356,6 +356,14 @@ Page {
         width: 60
         radius: 30
         color: "#872341"
+        Text {
+            text: "+"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: -15
+            font.bold: true
+            font.pixelSize: 70
+        }
         MouseArea {
             anchors.fill: parent
             onClicked: {

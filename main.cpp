@@ -5,6 +5,7 @@
 #include "foodsmanager.h"
 #include "daymanager.h"
 #include "dailymeals.h"
+#include "userfitnessinfo.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,17 @@ int main(int argc, char *argv[])
     FoodsManager foodManager;
     DayManager dayManager;
     DailyMeals day;
+    UserFitnessInfo user;
+
+    user.setWeight(61);
+    user.setHeight(173);
+    user.setMaint_cal(2300);
+    user.setDaily_cal(2300);
+    user.setProt_target(180);
+    user.setCarb_target(100);
+    user.setFat_target(50);
+    user.setActive_lvl(3);
+
     // FoodItem *banana = new FoodItem(&engine, "Banana",120, 5,40,50);
     // FoodItem *orange = new FoodItem(&engine, "Orange",200);
     // FoodItem *kiwi = new FoodItem(&engine, "Kiwi",60);
@@ -31,6 +43,7 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("foodManagerModel" , &foodManager);
     engine.rootContext()->setContextProperty("dayManagerModel" , &dayManager);
     engine.rootContext()->setContextProperty("dayModel" , &day);
+    engine.rootContext()->setContextProperty("user" , &user);
 
     QObject::connect(
         &engine,

@@ -42,6 +42,7 @@ qt_add_qml_module(appDietWorkoutTracker
         QML_FILES MyDialogs/EditFoodDialog.qml
         SOURCES dailymeals.h dailymeals.cpp
         SOURCES daymanager.h daymanager.cpp
+        SOURCES userfitnessinfo.h userfitnessinfo.cpp
 
 )
 

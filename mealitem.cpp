@@ -1,5 +1,6 @@
 #include "mealitem.h"
 
+#include<QDebug>
 MealItem::MealItem(QObject *parent)
     : QObject{parent} , m_foods(QList<FoodItem *>{}), m_name(),m_identifier(),m_calories(0),
     m_fats(0),m_proteins(0),m_carbs(0)
@@ -98,5 +99,18 @@ void MealItem::setFoods(const QList<FoodItem *> &newFoods)
 
 void MealItem::addFood(FoodItem* food)
 {
+    qDebug() << "Food added to meal";
     m_foods.append(food);
+    //TODO:: after adding the food , need to
+    // calculate the macro values according to the grams
+    // and update the macro values in this meal;
+    emit foodsChanged();
+}
+void MealItem::removeFood(int index)
+{
+    m_foods.removeAt(index);
+    //TODO:: after removing the food , need to
+    // calculate the macro values according to the grams
+    // and update the macro values in this meal;
+    emit foodsChanged();
 }

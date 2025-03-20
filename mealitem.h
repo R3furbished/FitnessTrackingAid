@@ -23,10 +23,10 @@ public:
     void setProteins(int newProteins);
     int carbs() const;
     void setCarbs(int newCarbs);
-    QList<FoodItem *> getFoods() const;
+    Q_INVOKABLE QList<FoodItem *> getFoods() const;
     void setFoods(const QList<FoodItem *> &newFoods);
-    void addFood(FoodItem* food);
-    void removeFood(int index);
+    Q_INVOKABLE void addFood(FoodItem* food);
+    Q_INVOKABLE void removeFood(int index);
 
 signals:
 

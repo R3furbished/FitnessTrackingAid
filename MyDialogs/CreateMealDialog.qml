@@ -15,7 +15,7 @@ Dialog {
         width: parent.width
         color: "lightblue"
         radius: 10
-        height: 60
+        height: 40
         Text {
             id: macrosText
             anchors.centerIn: parent
@@ -46,10 +46,9 @@ Dialog {
         id: foodListView
         anchors.top: searchBar.bottom
         anchors.topMargin: 10
-        height: parent.height / 2
+        height: parent.height / 3
         width: parent.width
         clip: true
-        //TODO::getFoodItemWithName() should return a List
         model: foodManagerModel.getFoodItemWithName(searchBarText.text)
         delegate: ItemDelegate {
             id: foodItemDelegate
@@ -91,7 +90,91 @@ Dialog {
                         anchors.right: parent.right
                         text: "ADD"
                         onClicked: {
-                            console.log("add was pressed.")
+                            // Getting the meal that was just created when clicking the button in DietPage
+                            dayManagerModel.getDayWithDate(
+                                        new Date().toLocaleDateString(
+                                            Qt.locale(
+                                                ).shortFormat)).getLatestMeal(
+                                        ).addFood(foodListView.model[index])
+                        }
+                    }
+                }
+                active: true
+            }
+        }
+        currentIndex: -1
+    }
+
+    Rectangle {
+        id: currentMeal
+        anchors.top: foodListView.bottom
+        anchors.topMargin: 5
+        width: parent.width
+        color: "lightblue"
+        radius: 10
+        height: 30
+        Text {
+            anchors.centerIn: parent
+            text: "Items In Meal:"
+            font.bold: true
+        }
+    }
+    ListView {
+
+        id: currentMealListView
+        anchors.top: currentMeal.bottom
+        height: parent.height / 4
+        width: parent.width
+        clip: true
+        model: dayManagerModel.getDayWithDate(
+                   new Date().toLocaleDateString(
+                       Qt.locale().shortFormat)).getLatestMeal().foods
+        delegate: ItemDelegate {
+            id: currentMealItemDelegate
+            width: parent.width
+            height: 40
+
+            Loader {
+                id: currentMealLoader
+                anchors.fill: parent
+                sourceComponent: Rectangle {
+                    id: recti
+                    radius: 10
+                    color: "gray"
+                    border.color: "black"
+                    anchors.fill: parent
+
+                    Text {
+                        id: mealFoodName
+                        text: currentMealListView.model[index].name
+                        font.pixelSize: 20
+                        font.bold: true
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    TextField {
+                        anchors.right: mealAddButton.left
+                        placeholderText: "grams"
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+
+                    Button {
+                        id: mealAddButton
+                        height: parent.height
+                        width: 80
+                        anchors.right: parent.right
+                        text: "Remove"
+                        onClicked: {
+                            // Getting the meal that was just created when clicking the button in DietPage
+                            dayManagerModel.getDayWithDate(
+                                        new Date().toLocaleDateString(
+                                            Qt.locale(
+                                                ).shortFormat)).getLatestMeal(
+                                        ).removeFood(
+                                        currentMealListView.model[index])
+
+                            console.log("removed was pressed.")
                         }
                     }
                 }

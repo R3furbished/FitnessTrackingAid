@@ -1,5 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls
+import QtQuick.Layouts
 import "../MyDialogs"
 
 //Missing -> C++ data interaction and displaying the model
@@ -14,6 +15,10 @@ Page {
     }
 
     Rectangle {
+        property int kcal: 2005
+        property int prot: 120
+        property int fat: 50
+        property int carb: 80
         id: macroPlacement
         width: mealListPlacement.width
         height: 50
@@ -22,12 +27,77 @@ Page {
         anchors.top: parent.top
         anchors.topMargin: 10
         color: "gray"
-        Text {
-            id: macroPlacementTextField
-            anchors.centerIn: parent
-            text: ""
-            font.bold: true
+        RowLayout {
+            width: parent.width - 20
+            anchors.right: parent.right
+            height: parent.height
+            ColumnLayout {
+                id: kcalColl
+                Layout.maximumWidth: 40
+                Label {
+                    text: "     Kcal"
+                    font.bold: true
+                }
+                Text {
+                    text: "" + macroPlacement.kcal + "/" + user.daily_cal
+                    font.bold: true
+                }
+            }
+            ColumnLayout {
+                id: protColl
+                Layout.maximumWidth: 40
+                Label {
+                    text: "   Prot"
+                    font.bold: true
+                }
+                Text {
+                    text: "" + macroPlacement.prot + "/" + user.prot_target
+                    font.bold: true
+                }
+            }
+            ColumnLayout {
+                id: fatColl
+                Layout.maximumWidth: 40
+                Label {
+                    text: "  Fats"
+                    font.bold: true
+                }
+                Text {
+                    text: "" + macroPlacement.fat + "/" + user.fat_target
+                    font.bold: true
+                }
+            }
+            ColumnLayout {
+                id: carbColl
+                Layout.maximumWidth: 40
+                Label {
+                    text: "  Carbs"
+                    font.bold: true
+                }
+                Text {
+                    text: "" + macroPlacement.carb + "/" + user.carb_target
+                    font.bold: true
+                }
+            }
         }
+
+        // Text {
+        //     id: macroLegendTextField
+        //     anchors.horizontalCenter: parent.horizontalCenter
+        //     anchors.top: parent.top
+        //     text: "   Kcal  |  Prot  |  Fats  | Carbs "
+        //     font.bold: true
+        // }
+        // Text {
+        //     id: macroPlacementTextField
+        //     anchors.horizontalCenter: parent.horizontalCenter
+        //     anchors.bottom: parent.bottom
+        //     text: "" + macroPlacement.kcal + "/" + user.daily_cal + " "
+        //           + macroPlacement.prot + "/" + user.prot_target + " "
+        //           + macroPlacement.fat + "/" + user.fat_target + " "
+        //           + macroPlacement.carb + "/" + user.carb_target + " "
+        //     font.bold: true
+        // }
     }
 
     Rectangle {
@@ -97,17 +167,15 @@ Page {
 
                     dayManagerModel.newDay(new Date().toLocaleDateString(
                                                Qt.locale().shortFormat))
-                    macroPlacementTextField.text = dayManagerModel.getLatestDay(
-                                ).date
                 }
                 //TODO:: Is this the best way of doing it?
                 // We need 2 methods to be created one that gets the currentDay from the manager;
                 // and another that from that day calls createMeal()
-//                !Todo("Create this meal here , and use it inside the Dialog
-//but in case the cancell button is press or we close
-//the dialog, the meal that was created here should be
-//deleted by calling:
-//>dayManagerModel.currentDay().deleteLastMeal()")
+                //!Todo("Create this meal here , and use it inside the Dialog
+                //but in case the cancell button is press or we close
+                //the dialog, the meal that was created here should be
+                //deleted by calling:
+                //>dayManagerModel.currentDay().deleteLastMeal()
                 dayManagerModel.getDayWithDate(
                             new Date().toLocaleDateString(
                                 Qt.locale().shortFormat)).createMeal()
