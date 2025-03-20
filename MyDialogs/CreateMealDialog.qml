@@ -41,8 +41,8 @@ Dialog {
             ColumnLayout {
                 id: mealKcalColl
                 Layout.maximumWidth: 40
-                Label {
-                    text: "     Kcal"
+                Text {
+                    text: " Kcal"
                     font.bold: true
                 }
                 Text {
@@ -54,8 +54,8 @@ Dialog {
             ColumnLayout {
                 id: mealProtColl
                 Layout.maximumWidth: 40
-                Label {
-                    text: "   Prot"
+                Text {
+                    text: "Prot"
                     font.bold: true
                 }
                 Text {
@@ -67,8 +67,8 @@ Dialog {
             ColumnLayout {
                 id: mealFatColl
                 Layout.maximumWidth: 40
-                Label {
-                    text: "  Fats"
+                Text {
+                    text: "Fats"
                     font.bold: true
                 }
                 Text {
@@ -80,8 +80,8 @@ Dialog {
             ColumnLayout {
                 id: mealCarbColl
                 Layout.maximumWidth: 40
-                Label {
-                    text: "  Carbs"
+                Text {
+                    text: "Carbs"
                     font.bold: true
                 }
                 Text {
@@ -94,16 +94,22 @@ Dialog {
     }
 
     Rectangle {
-        width: parent.width
+        width: parent.width / 2
         id: searchBar
         anchors.top: macrosDisplay.bottom
+        anchors.topMargin: 10
+        anchors.horizontalCenter: parent.horizontalCenter
         color: "gray"
         radius: 10
         height: 30
         TextField {
             id: searchBarText
-            anchors.fill: parent
-            placeholderText: "Food Name"
+            width: parent.width - 5
+            height: parent.height - 5
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            placeholderText: "Search for food"
+            font.bold: true
         }
     }
 
