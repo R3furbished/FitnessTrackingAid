@@ -143,10 +143,12 @@ Dialog {
                         anchors.right: parent.right
                         text: "ADD"
                         onClicked: {
-
-                            dayManagerModel.getLatestDay().getLatestMeal(
-                                        ).addFood(foodListView.model[index],
-                                                  parseInt(gramsValue.text))
+                            if (parseInt(gramsValue.text) > 0) {
+                                dayManagerModel.getLatestDay().getLatestMeal(
+                                            ).addFood(
+                                            foodListView.model[index],
+                                            parseInt(gramsValue.text))
+                            }
                         }
                     }
                 }
