@@ -149,11 +149,13 @@ Page {
                             id: deleteInteraction
                             anchors.fill: parent
                             onClicked: {
+                                mealListView.currentIndex = index
                                 if (deleteMealDialogLoader.active === true) {
                                     deleteMealDialogLoader.active = false
                                 }
                                 deleteMealDialogLoader.active = true
                                 deleteMealDialogLoader.item.open()
+                                console.log(mealListView.currentIndex)
                             }
                         }
 
@@ -171,8 +173,8 @@ Page {
                             height: parent.height - 5
                             width: 3
                             color: "black"
-                            anchors.left: mealDate.right
-                            anchors.leftMargin: 7
+                            anchors.left: parent.left
+                            anchors.leftMargin: 81
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -240,7 +242,6 @@ Page {
                     active: true
                 }
             }
-
             currentIndex: -1
         }
     }
@@ -309,7 +310,7 @@ Page {
             }
             onAccepted: {
                 dayManagerModel.getLatestDay().removeMeal(
-                            mealListPlacement.currentIndex)
+                            mealListView.currentIndex)
                 deleteMealDialog.close()
             }
             onRejected: {

@@ -115,7 +115,7 @@ void DailyMeals::removeMeal(int index)
     int protein = meal->proteins();
     int carbs =  meal->carbs();
     int fats = meal->fats();
-    int calories = meal->fats();
+    int calories = meal->calories();
 
     setDayKcal(m_dayKcal - calories);
     setDayProt(m_dayProt - protein);
