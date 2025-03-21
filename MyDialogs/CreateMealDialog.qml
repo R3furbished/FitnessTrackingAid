@@ -267,7 +267,7 @@ Dialog {
     Button {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        text: qsTr("Add")
+        text: qsTr("NewItem")
         onClicked: {
             console.log("TODO!! Needs to give a forum to fill with macro data and add it to the meal macros list.")
         }

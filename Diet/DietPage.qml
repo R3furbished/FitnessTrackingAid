@@ -146,11 +146,81 @@ Page {
                         Text {
                             id: mealDate
                             text: mealListView.model[index].timeStamp
-                            font.pixelSize: 20
+                            font.pixelSize: 15
                             font.bold: true
                             anchors.left: parent.left
                             anchors.leftMargin: 10
                             anchors.verticalCenter: parent.verticalCenter
+                        }
+                        Rectangle {
+                            id: div
+                            height: parent.height - 5
+                            width: 3
+                            color: "black"
+                            anchors.left: mealDate.right
+                            anchors.leftMargin: 7
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+
+                        RowLayout {
+                            anchors.left: div.right
+                            anchors.leftMargin: 7
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            anchors.bottom: parent.bottom
+                            height: parent.height
+                            ColumnLayout {
+                                id: mealKcalColl
+                                Layout.maximumWidth: 40
+                                Text {
+                                    text: " Kcal"
+                                    font.bold: true
+                                }
+                                Text {
+                                    id: mealKcal
+                                    text: dayManagerModel.days[0].meals[index].calories
+                                    font.bold: true
+                                }
+                            }
+                            ColumnLayout {
+                                id: mealProtColl
+                                Layout.maximumWidth: 40
+                                Text {
+                                    text: "Prot"
+                                    font.bold: true
+                                }
+                                Text {
+                                    id: mealProts
+                                    text: dayManagerModel.days[0].meals[index].proteins
+                                    font.bold: true
+                                }
+                            }
+                            ColumnLayout {
+                                id: mealFatColl
+                                Layout.maximumWidth: 40
+                                Text {
+                                    text: "Fats"
+                                    font.bold: true
+                                }
+                                Text {
+                                    id: mealFats
+                                    text: dayManagerModel.days[0].meals[index].fats
+                                    font.bold: true
+                                }
+                            }
+                            ColumnLayout {
+                                id: mealCarbColl
+                                Layout.maximumWidth: 40
+                                Text {
+                                    text: "Carbs"
+                                    font.bold: true
+                                }
+                                Text {
+                                    id: mealCarbs
+                                    text: dayManagerModel.days[0].meals[index].carbs
+                                    font.bold: true
+                                }
+                            }
                         }
                     }
                     active: true
