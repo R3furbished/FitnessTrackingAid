@@ -218,6 +218,7 @@ Dialog {
                 anchors.fill: parent
                 model: dayManagerModel.getLatestDay().getLatestMeal().foods
                 clip: true
+                spacing: 5
                 delegate: ItemDelegate {
                     id: currentMealItemDelegate
                     width: parent.width

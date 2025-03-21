@@ -21,7 +21,7 @@ Page {
         property int carb: 80
         id: macroPlacement
         width: mealListPlacement.width
-        height: 50
+        height: 60
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -42,6 +42,14 @@ Page {
                     text: "" + macroPlacement.kcal + "/" + user.daily_cal
                     font.bold: true
                 }
+                ProgressBar {
+                    id: kcalProgressBar
+                    Layout.maximumHeight: 10
+                    Layout.maximumWidth: 75
+                    from: 0
+                    to: 1
+                    value: macroPlacement.kcal / user.daily_cal
+                }
             }
             ColumnLayout {
                 id: protColl
@@ -53,6 +61,14 @@ Page {
                 Text {
                     text: "" + macroPlacement.prot + "/" + user.prot_target
                     font.bold: true
+                }
+                ProgressBar {
+                    id: protProgressBar
+                    Layout.maximumHeight: 10
+                    Layout.maximumWidth: 75
+                    from: 0
+                    to: 1
+                    value: macroPlacement.prot / user.prot_target
                 }
             }
             ColumnLayout {
@@ -66,6 +82,14 @@ Page {
                     text: "" + macroPlacement.fat + "/" + user.fat_target
                     font.bold: true
                 }
+                ProgressBar {
+                    id: fatProgressBar
+                    Layout.maximumHeight: 10
+                    Layout.maximumWidth: 75
+                    from: 0
+                    to: 1
+                    value: macroPlacement.fat / user.fat_target
+                }
             }
             ColumnLayout {
                 id: carbColl
@@ -77,6 +101,14 @@ Page {
                 Text {
                     text: "" + macroPlacement.carb + "/" + user.carb_target
                     font.bold: true
+                }
+                ProgressBar {
+                    id: carbProgressBar
+                    Layout.maximumHeight: 10
+                    Layout.maximumWidth: 75
+                    from: 0
+                    to: 1
+                    value: macroPlacement.carb / user.carb_target
                 }
             }
         }

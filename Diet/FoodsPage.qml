@@ -28,6 +28,7 @@ Page {
             id: foodListView
             anchors.fill: parent
             clip: true
+            spacing: 3
             model: foodManagerModel.foods
             delegate: foodItemDelegate
             currentIndex: -1
