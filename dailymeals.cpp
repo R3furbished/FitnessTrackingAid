@@ -110,8 +110,20 @@ void DailyMeals::setDate(QString date){
 }
 
 void DailyMeals::removeMeal(int index)
-{
+{	MealItem* meal = m_meals[index];
 
+    int protein = meal->proteins();
+    int carbs =  meal->carbs();
+    int fats = meal->fats();
+    int calories = meal->fats();
+
+    setDayKcal(m_dayKcal - calories);
+    setDayProt(m_dayProt - protein);
+    setDayFats(m_dayFats - fats);
+    setDayCarbs(m_dayCarbs - carbs);
+
+    m_meals.removeAt(index);
+    emit mealsChanged();
 }
 
 

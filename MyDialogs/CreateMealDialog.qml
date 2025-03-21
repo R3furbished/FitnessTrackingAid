@@ -5,7 +5,7 @@ import QtQuick.Layouts
 
 Dialog {
     id: mealFormDialog
-    height: parent.height * 2 / 3
+    height: (parent.height * 2 / 3) + 20
     width: parent.width - 20
     anchors.centerIn: parent
     modal: true
@@ -13,10 +13,12 @@ Dialog {
     closePolicy: Popup.NoAutoClose
     Rectangle {
         id: macrosDisplay
+        anchors.top: parent.top
+        anchors.topMargin: 5
         width: parent.width
         color: "lightblue"
         radius: 10
-        height: 40
+        height: 50
         RowLayout {
             width: parent.width - 20
             anchors.right: parent.right
@@ -80,11 +82,11 @@ Dialog {
         width: parent.width / 2
         id: searchBar
         anchors.top: macrosDisplay.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: 5
         anchors.horizontalCenter: parent.horizontalCenter
         color: "gray"
         radius: 10
-        height: 30
+        height: 40
         TextField {
             id: searchBarText
             width: parent.width - 5
@@ -93,6 +95,7 @@ Dialog {
             anchors.verticalCenter: parent.verticalCenter
             placeholderText: "Search for food"
             font.bold: true
+            font.pixelSize: 15
         }
     }
 
@@ -138,8 +141,9 @@ Dialog {
 
                     Button {
                         id: addButton
-                        height: parent.height
-                        width: 70
+                        height: parent.height - 10
+                        width: 60
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         text: "ADD"
                         onClicked: {
@@ -221,9 +225,10 @@ Dialog {
 
                     Button {
                         id: mealDeleteButton
-                        height: parent.height
+                        height: parent.height - 10
                         width: 80
                         anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
                         text: "Remove"
                         onClicked: {
                             dayManagerModel.getLatestDay().getLatestMeal(
@@ -234,8 +239,9 @@ Dialog {
 
                     Button {
                         id: mealEditButton
-                        height: parent.height
+                        height: parent.height - 10
                         width: 80
+                        anchors.verticalCenter: parent.verticalCenter
                         anchors.right: parent.right
                         text: "Edit"
                         visible: false

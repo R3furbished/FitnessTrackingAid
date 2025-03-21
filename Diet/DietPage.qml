@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Dialogs
 import "../MyDialogs"
 
 //Missing -> C++ data interaction and displaying the model
@@ -21,7 +22,7 @@ Page {
         property int carb: dayManagerModel.getLatestDay().dayCarbs
         id: macroPlacement
         width: mealListPlacement.width
-        height: 60
+        height: 70
         radius: 10
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
@@ -119,7 +120,7 @@ Page {
         anchors.top: macroPlacement.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width - 70
+        width: parent.width - 50
         height: parent.height - 200
         color: "#872341"
 
@@ -132,16 +133,29 @@ Page {
             delegate: ItemDelegate {
                 id: mealItemDelegate
                 width: parent.width
-                height: 40
+                height: 50
 
                 Loader {
                     anchors.fill: parent
                     sourceComponent: Rectangle {
                         id: re
-                        radius: 10
+                        radius: 4
                         color: "gray"
                         border.color: "black"
                         anchors.fill: parent
+
+                        //TODO:: Quick Hack to be able to Delete , should be a button or slider
+                        MouseArea {
+                            id: deleteInteraction
+                            anchors.fill: parent
+                            onClicked: {
+                                if (deleteMealDialogLoader.active === true) {
+                                    deleteMealDialogLoader.active = false
+                                }
+                                deleteMealDialogLoader.active = true
+                                deleteMealDialogLoader.item.open()
+                            }
+                        }
 
                         Text {
                             id: mealDate
@@ -274,6 +288,32 @@ Page {
 
                 addMealDialogLoader.active = true
                 addMealDialogLoader.item.open()
+            }
+        }
+    }
+
+    Loader {
+        id: deleteMealDialogLoader
+        active: false
+        sourceComponent: MessageDialog {
+            id: deleteMealDialog
+            text: qsTr("The selected Item will be deleted.")
+            informativeText: qsTr("Do you wish to proceed?")
+            buttons: MessageDialog.Ok | MessageDialog.Cancel
+            onButtonClicked: function (button, role) {
+                if (button === MessageDialog.Ok) {
+                    accept()
+                } else {
+                    reject()
+                }
+            }
+            onAccepted: {
+                dayManagerModel.getLatestDay().removeMeal(
+                            mealListPlacement.currentIndex)
+                deleteMealDialog.close()
+            }
+            onRejected: {
+                deleteMealDialog.close()
             }
         }
     }
