@@ -69,7 +69,7 @@ Dialog {
                 }
                 Text {
                     id: mealCarbs
-                    text: dayManagerModel.days[0].getLatestMeal().fats
+                    text: dayManagerModel.days[0].getLatestMeal().carbs
                     font.bold: true
                 }
             }
@@ -258,6 +258,11 @@ Dialog {
         text: qsTr("Done")
         onClicked: {
             mealFormDialog.close()
+        }
+    }
+    onClosed: {
+        if (dayManagerModel.getLatestDay().getLatestMeal().calories === 0) {
+            dayManagerModel.getLatestDay().deleteLastMeal()
         }
     }
 }
