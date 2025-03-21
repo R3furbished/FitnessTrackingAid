@@ -22,7 +22,7 @@ void DailyMeals::addMeal(MealItem* meal)
     int protein = meal->proteins();
     int carbs =  meal->carbs();
     int fats = meal->fats();
-    int calories = meal->fats();
+    int calories = meal->calories();
 
     setDayKcal(calories + m_dayKcal);
     setDayProt(protein + m_dayProt);

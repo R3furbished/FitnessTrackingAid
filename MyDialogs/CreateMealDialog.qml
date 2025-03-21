@@ -119,7 +119,7 @@ Dialog {
                 sourceComponent: Rectangle {
                     id: recting
                     radius: 10
-                    color: "gray"
+                    color: "lightblue"
                     border.color: "black"
                     anchors.fill: parent
 

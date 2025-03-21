@@ -27,9 +27,9 @@ Page {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: 10
-        color: "gray"
+        color: "lightgreen"
         RowLayout {
-            width: parent.width - 20
+            width: parent.width - 5
             anchors.right: parent.right
             height: parent.height
             ColumnLayout {
@@ -60,7 +60,7 @@ Page {
                     font.bold: true
                 }
                 Text {
-                    text: "" + macroPlacement.prot + "/" + user.prot_target
+                    text: "  " + macroPlacement.prot + "/" + user.prot_target
                     font.bold: true
                 }
                 ProgressBar {
@@ -80,7 +80,7 @@ Page {
                     font.bold: true
                 }
                 Text {
-                    text: "" + macroPlacement.fat + "/" + user.fat_target
+                    text: " " + macroPlacement.fat + "/" + user.fat_target
                     font.bold: true
                 }
                 ProgressBar {
@@ -100,7 +100,7 @@ Page {
                     font.bold: true
                 }
                 Text {
-                    text: "" + macroPlacement.carb + "/" + user.carb_target
+                    text: " " + macroPlacement.carb + "/" + user.carb_target
                     font.bold: true
                 }
                 ProgressBar {
@@ -120,7 +120,7 @@ Page {
         anchors.top: macroPlacement.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width - 50
+        width: parent.width - 30
         height: parent.height - 200
         color: "#872341"
 
@@ -140,7 +140,7 @@ Page {
                     sourceComponent: Rectangle {
                         id: re
                         radius: 4
-                        color: "gray"
+                        color: "lightblue"
                         border.color: "black"
                         anchors.fill: parent
 
@@ -250,9 +250,9 @@ Page {
         anchors.top: mealListPlacement.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
-        height: 60
-        width: 60
-        radius: 30
+        height: 54
+        width: 54
+        radius: 27
         color: "#872341"
         Text {
             text: "+"
