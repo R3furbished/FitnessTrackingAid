@@ -31,7 +31,6 @@ void MealItem::setCalories(int newCalories)
     if (m_calories == newCalories)
         return;
     m_calories = newCalories;
-    qDebug()<< "Calories changed to" << m_calories;
     emit caloriesChanged();
 }
 
@@ -131,6 +130,38 @@ void MealItem::removeFood(int index, int grams)
     m_gramsAtIndex.removeAt(index);
     emit foodsChanged();
     emit gramsChanged();
+    }
+}
+
+void MealItem::editFoodGramsValueAt(int index,int grams){
+
+    if(index < m_foods.size()){
+        FoodItem* food = m_foods[index];
+        int old_grams = m_gramsAtIndex[index];
+
+        // To edit the value of the macros accordingly
+        // We first calculate the values they currently have;
+        int old_protein = (old_grams * food->proteins()) / food->grams_value();
+        int old_carbs = (old_grams * food->carbs()) / food->grams_value();
+        int old_fats = (old_grams * food->fats()) / food->grams_value();
+        int old_calories = (old_grams * food->calories()) / food->grams_value();
+
+        // Then we calculate the new values with the edited grams;
+        int protein = (grams * food->proteins()) / food->grams_value();
+        int carbs = (grams * food->carbs()) / food->grams_value();
+        int fats = (grams * food->fats()) / food->grams_value();
+        int calories = (grams * food->calories()) / food->grams_value();
+
+        //And now we set them by removing the old ones and adding the new
+        setCalories((m_calories - old_calories) + calories);
+        setProteins((m_proteins - old_protein) + protein);
+        setCarbs((m_carbs - old_carbs) + carbs);
+        setFats((m_fats - old_fats) + fats);
+
+        //Also need to update grams list to match the change
+        m_gramsAtIndex[index] = grams;
+
+        emit gramsChanged();
     }
 }
 

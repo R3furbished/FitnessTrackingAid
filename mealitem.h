@@ -27,7 +27,7 @@ public:
     Q_INVOKABLE void addFood(FoodItem* food, int grams);
     Q_INVOKABLE void removeFood(int index , int grams);
     Q_INVOKABLE bool isEmpty();
-
+    Q_INVOKABLE void editFoodGramsValueAt(int index,int grams);
 signals:
 
     void timeStampChanged();

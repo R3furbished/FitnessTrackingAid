@@ -110,9 +110,7 @@ Dialog {
             height: 40
 
             Loader {
-                //TODO:: trying to create a selectable delegate variant
-                // When item is selected should request for grams and add it to
-                // the meal if the grams field is not empty;
+
                 id: nonActivefoodLoader
                 anchors.fill: parent
                 sourceComponent: Rectangle {
@@ -182,6 +180,7 @@ Dialog {
         model: dayManagerModel.getLatestDay().getLatestMeal().foods
         clip: true
         spacing: 5
+        currentIndex: -1
         delegate: ItemDelegate {
             id: currentMealItemDelegate
             width: parent.width
@@ -212,6 +211,10 @@ Dialog {
                         text: dayManagerModel.getLatestDay().getLatestMeal(
                                   ).gramsAtIndex[index]
                         anchors.verticalCenter: parent.verticalCenter
+                        onTextEdited: {
+                            mealDeleteButton.visible = false
+                            mealEditButton.visible = true
+                        }
                     }
 
                     Button {
@@ -222,16 +225,31 @@ Dialog {
                         text: "Remove"
                         onClicked: {
                             dayManagerModel.getLatestDay().getLatestMeal(
-                                        ).removeFood(
-                                        currentMealListView.model[index],
-                                        parseInt(deleteGramsValue.text))
+                                        ).removeFood(index, parseInt(
+                                                         deleteGramsValue.text))
+                        }
+                    }
+
+                    Button {
+                        id: mealEditButton
+                        height: parent.height
+                        width: 80
+                        anchors.right: parent.right
+                        text: "Edit"
+                        visible: false
+                        onClicked: {
+                            dayManagerModel.getLatestDay().getLatestMeal(
+                                        ).editFoodGramsValueAt(
+                                        index, parseInt(deleteGramsValue.text))
+
+                            mealEditButton.visible = false
+                            mealDeleteButton.visible = true
                         }
                     }
                 }
                 active: true
             }
         }
-        currentIndex: -1
     }
 
     Button {

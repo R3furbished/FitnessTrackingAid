@@ -48,7 +48,6 @@ DailyMeals* DayManager::getDayAt(int index)
 DailyMeals* DayManager::getLatestDay()
 
 {   if(!m_days.isEmpty()){
-        qDebug() << "Latest DAy is:" << m_days.last();
     return m_days.last();
     }
         return nullptr;
