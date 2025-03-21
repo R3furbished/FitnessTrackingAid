@@ -15,10 +15,10 @@ Page {
     }
 
     Rectangle {
-        property int kcal: 2005
-        property int prot: 120
-        property int fat: 50
-        property int carb: 80
+        property int kcal: dayManagerModel.getLatestDay().dayKcal
+        property int prot: dayManagerModel.getLatestDay().dayProt
+        property int fat: dayManagerModel.getLatestDay().dayFats
+        property int carb: dayManagerModel.getLatestDay().dayCarbs
         id: macroPlacement
         width: mealListPlacement.width
         height: 60
@@ -184,13 +184,7 @@ Page {
             onClicked: {
                 //TODO!!!!!!!
                 // Eventually should be automatic on APP loading instead of button pressing;
-                if (!dayManagerModel.hasDayWithDate(
-                            new Date().toLocaleDateString(Qt.locale(
-                                                              ).shortFormat))) {
 
-                    dayManagerModel.newDay(new Date().toLocaleDateString(
-                                               Qt.locale().shortFormat))
-                }
                 //TODO:: Is this the best way of doing it?
                 // We need 2 methods to be created one that gets the currentDay from the manager;
                 // and another that from that day calls createMeal()

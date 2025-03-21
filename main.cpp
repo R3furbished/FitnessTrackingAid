@@ -1,11 +1,20 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QDate>
+#include <QLocale>
 #include "fooditem.h"
 #include "foodsmanager.h"
 #include "daymanager.h"
 #include "dailymeals.h"
 #include "userfitnessinfo.h"
+
+
+QString getFormattedDate() {
+    QLocale locale = QLocale::system(); // Get system locale
+    QString dateFormat = locale.dateFormat(QLocale::ShortFormat);
+    return QDate::currentDate().toString(dateFormat);
+}
 
 int main(int argc, char *argv[])
 {
@@ -38,6 +47,8 @@ int main(int argc, char *argv[])
     foodManager.addFoodItem("Oplank",220,100,10,60,70);
     foodManager.addFoodItem("Frag",330,100,20,43,50);
     foodManager.addFoodItem("Hei",330,100,20,43,50);
+
+    dayManager.newDay(getFormattedDate());
 
     engine.rootContext()->setContextProperty("foodManagerModel" , &foodManager);
     engine.rootContext()->setContextProperty("dayManagerModel" , &dayManager);

@@ -10,7 +10,7 @@ Dialog {
     anchors.centerIn: parent
     modal: true
     focus: true
-
+    closePolicy: Popup.NoAutoClose
     Rectangle {
         id: macrosDisplay
         width: parent.width
@@ -259,8 +259,8 @@ Dialog {
         anchors.left: parent.left
         text: qsTr("Cancel")
         onClicked: {
-            mealFormDialog.close()
             dayManagerModel.getLatestDay().deleteLastMeal()
+            mealFormDialog.close()
         }
     }
 
@@ -277,12 +277,14 @@ Dialog {
         anchors.right: parent.right
         text: qsTr("Done")
         onClicked: {
+            if (dayManagerModel.getLatestDay().getLatestMeal().calories !== 0) {
+                dayManagerModel.getLatestDay().addMeal(
+                            dayManagerModel.getLatestDay().getLatestMeal())
+            } else {
+                dayManagerModel.getLatestDay().deleteLastMeal()
+            }
+
             mealFormDialog.close()
-        }
-    }
-    onClosed: {
-        if (dayManagerModel.getLatestDay().getLatestMeal().calories === 0) {
-            dayManagerModel.getLatestDay().deleteLastMeal()
         }
     }
 }
