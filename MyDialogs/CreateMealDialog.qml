@@ -10,23 +10,6 @@ Dialog {
     anchors.centerIn: parent
     modal: true
     focus: true
-    closePolicy: Popup.NoAutoClose
-    property string timeStamp: "0"
-
-    function updateMacrosListing() {
-        mealKcal.text = dayManagerModel.days[0].getLatestMeal().calories
-        mealProts.text = dayManagerModel.days[0].getLatestMeal().proteins
-        mealCarbs.text = dayManagerModel.days[0].getLatestMeal().carbs
-        mealFats.text = dayManagerModel.days[0].getLatestMeal().fats
-    }
-
-    Timer {
-        id: updateTimer
-        interval: 1000 // Runs every second
-        running: false // Initially stopped
-        repeat: true
-        onTriggered: updateMacrosListing()
-    }
 
     Rectangle {
         id: macrosDisplay
@@ -47,7 +30,7 @@ Dialog {
                 }
                 Text {
                     id: mealKcal
-                    text: ""
+                    text: dayManagerModel.days[0].getLatestMeal().calories
                     font.bold: true
                 }
             }
@@ -60,7 +43,7 @@ Dialog {
                 }
                 Text {
                     id: mealProts
-                    text: ""
+                    text: dayManagerModel.days[0].getLatestMeal().proteins
                     font.bold: true
                 }
             }
@@ -73,7 +56,7 @@ Dialog {
                 }
                 Text {
                     id: mealFats
-                    text: ""
+                    text: dayManagerModel.days[0].getLatestMeal().fats
                     font.bold: true
                 }
             }
@@ -86,7 +69,7 @@ Dialog {
                 }
                 Text {
                     id: mealCarbs
-                    text: ""
+                    text: dayManagerModel.days[0].getLatestMeal().fats
                     font.bold: true
                 }
             }
@@ -162,26 +145,10 @@ Dialog {
                         anchors.right: parent.right
                         text: "ADD"
                         onClicked: {
-                            // Check if there is a new Meal Object before adding the food item to it;
-                            // The null check in the if statement is to create the Meal Object when the
-                            // day has had no meal yet;
-                            if (dayManagerModel.getLatestDay().getLatestMeal(
-                                        ) === null
-                                    || dayManagerModel.getLatestDay(
-                                        ).getLatestMeal(
-                                        ).timeStamp !== mealFormDialog.timeStamp) {
-                                dayManagerModel.getLatestDay().createMeal(
-                                            timeStamp)
-                                loaderComponentMealLV.active = true
-                            }
+
                             dayManagerModel.getLatestDay().getLatestMeal(
                                         ).addFood(foodListView.model[index],
                                                   parseInt(gramsValue.text))
-
-                            updateMacrosListing()
-                            if (!updateTimer.running) {
-                                updateTimer.start()
-                            }
                         }
                     }
                 }
@@ -205,79 +172,73 @@ Dialog {
             font.bold: true
         }
     }
-    Loader {
-        id: loaderComponentMealLV
-        active: false
+
+    ListView {
+        id: currentMealListView
         anchors.top: currentMeal.bottom
         height: parent.height / 4
         width: parent.width
-        sourceComponent: Component {
-            id: mealComponentLV
-            ListView {
-                id: currentMealListView
+        // anchors.fill: parent
+        model: dayManagerModel.getLatestDay().getLatestMeal().foods
+        clip: true
+        spacing: 5
+        delegate: ItemDelegate {
+            id: currentMealItemDelegate
+            width: parent.width
+            height: 40
+
+            Loader {
+                id: currentMealLoader
                 anchors.fill: parent
-                model: dayManagerModel.getLatestDay().getLatestMeal().foods
-                clip: true
-                spacing: 5
-                delegate: ItemDelegate {
-                    id: currentMealItemDelegate
-                    width: parent.width
-                    height: 40
+                sourceComponent: Rectangle {
+                    id: recti
+                    radius: 10
+                    color: "gray"
+                    border.color: "black"
+                    anchors.fill: parent
 
-                    Loader {
-                        id: currentMealLoader
-                        anchors.fill: parent
-                        sourceComponent: Rectangle {
-                            id: recti
-                            radius: 10
-                            color: "gray"
-                            border.color: "black"
-                            anchors.fill: parent
+                    Text {
+                        id: mealFoodName
+                        text: currentMealListView.model[index].name
+                        font.pixelSize: 20
+                        font.bold: true
+                        anchors.left: parent.left
+                        anchors.leftMargin: 10
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    TextField {
+                        id: deleteGramsValue
+                        anchors.right: mealDeleteButton.left
+                        text: dayManagerModel.getLatestDay().getLatestMeal(
+                                  ).gramsAtIndex[index]
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
 
-                            Text {
-                                id: mealFoodName
-                                text: currentMealListView.model[index].name
-                                font.pixelSize: 20
-                                font.bold: true
-                                anchors.left: parent.left
-                                anchors.leftMargin: 10
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-                            TextField {
-                                id: deleteGramsValue
-                                anchors.right: mealDeleteButton.left
-                                text: dayManagerModel.getLatestDay(
-                                          ).getLatestMeal().gramsAtIndex[index]
-                                anchors.verticalCenter: parent.verticalCenter
-                            }
-
-                            Button {
-                                id: mealDeleteButton
-                                height: parent.height
-                                width: 80
-                                anchors.right: parent.right
-                                text: "Remove"
-                                onClicked: {
-                                    dayManagerModel.getLatestDay(
-                                                ).getLatestMeal().removeFood(
-                                                currentMealListView.model[index],
-                                                parseInt(deleteGramsValue.text))
-                                }
-                            }
+                    Button {
+                        id: mealDeleteButton
+                        height: parent.height
+                        width: 80
+                        anchors.right: parent.right
+                        text: "Remove"
+                        onClicked: {
+                            dayManagerModel.getLatestDay().getLatestMeal(
+                                        ).removeFood(
+                                        currentMealListView.model[index],
+                                        parseInt(deleteGramsValue.text))
                         }
-                        active: true
                     }
                 }
-                currentIndex: -1
+                active: true
             }
         }
+        currentIndex: -1
     }
+
     Button {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         text: qsTr("Cancel")
         onClicked: {
-            updateTimer.stop()
             mealFormDialog.close()
             dayManagerModel.getLatestDay().deleteLastMeal()
         }
@@ -288,7 +249,6 @@ Dialog {
         anchors.bottom: parent.bottom
         text: qsTr("Add")
         onClicked: {
-            updateTimer.stop()
             console.log("TODO!! Needs to give a forum to fill with macro data and add it to the meal macros list.")
         }
     }
@@ -297,11 +257,7 @@ Dialog {
         anchors.right: parent.right
         text: qsTr("Done")
         onClicked: {
-            updateTimer.stop()
             mealFormDialog.close()
         }
-    }
-    Component.onCompleted: {
-        mealFormDialog.timeStamp = Qt.formatTime(new Date(), "hh:mm:ss")
     }
 }

@@ -101,10 +101,10 @@ void MealItem::addFood(FoodItem* food, int grams)
     int fats = (grams * food->fats()) / food->grams_value();
     int calories = (grams * food->calories()) / food->grams_value();
 
-    this->setCalories(calories + m_calories);
-    this->setProteins(protein + m_proteins);
-    this->setCarbs(carbs + m_carbs);
-    this->setFats(fats + m_fats);
+    setCalories(calories + m_calories);
+    setProteins(protein + m_proteins);
+    setCarbs(carbs + m_carbs);
+    setFats(fats + m_fats);
 
     m_foods.append(food);
     m_gramsAtIndex.append(grams);
@@ -122,10 +122,10 @@ void MealItem::removeFood(int index, int grams)
     int fats = (grams * food->fats()) / food->grams_value();
     int calories = (grams * food->calories()) / food->grams_value();
 
-    this->setCalories(m_calories - calories);
-    this->setProteins(m_proteins - protein);
-    this->setCarbs(m_carbs - carbs);
-    this->setFats(m_fats - fats);
+    setCalories(m_calories - calories);
+    setProteins(m_proteins - protein);
+    setCarbs(m_carbs - carbs);
+    setFats(m_fats - fats);
 
     m_foods.removeAt(index);
     m_gramsAtIndex.removeAt(index);
