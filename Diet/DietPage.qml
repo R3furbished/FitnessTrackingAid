@@ -129,7 +129,7 @@ Page {
             anchors.fill: parent
             //we index the model at 0, because we always prepend when creating a newDay
             //therefor the most recent day is always at position 0.
-            model: dayManagerModel.days[0].meals
+            model: dayManagerModel.getLatestDay().meals
             delegate: ItemDelegate {
                 id: mealItemDelegate
                 width: parent.width

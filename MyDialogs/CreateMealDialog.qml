@@ -32,7 +32,7 @@ Dialog {
                 }
                 Text {
                     id: mealKcal
-                    text: dayManagerModel.days[0].getLatestMeal().calories
+                    text: dayManagerModel.getLatestDay().getLatestMeal().calories
                     font.bold: true
                 }
             }
@@ -45,7 +45,7 @@ Dialog {
                 }
                 Text {
                     id: mealProts
-                    text: dayManagerModel.days[0].getLatestMeal().proteins
+                    text: dayManagerModel.getLatestDay().getLatestMeal().proteins
                     font.bold: true
                 }
             }
@@ -58,7 +58,7 @@ Dialog {
                 }
                 Text {
                     id: mealFats
-                    text: dayManagerModel.days[0].getLatestMeal().fats
+                    text: dayManagerModel.getLatestDay().getLatestMeal().fats
                     font.bold: true
                 }
             }
@@ -71,7 +71,7 @@ Dialog {
                 }
                 Text {
                     id: mealCarbs
-                    text: dayManagerModel.days[0].getLatestMeal().carbs
+                    text: dayManagerModel.getLatestDay().getLatestMeal().carbs
                     font.bold: true
                 }
             }
